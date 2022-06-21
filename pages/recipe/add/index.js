@@ -65,7 +65,7 @@ const AddRecipe = () => {
                 text: `Video must be 100MB or lower`,
                 icon: "error",
             });
-        } 
+        }
         if (uploaded.type !== 'video/mp4') {
             return swal({
                 title: "Error!",
@@ -109,10 +109,11 @@ const AddRecipe = () => {
             formData.append('ingredients', recipeData.ingredients)
 
             try {
-                // dispatch(addProduct(formData, authToken))
-                // await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/add`, formData, {
-                //     headers: { Authorization: `Bearer ${authToken}` }
-                // })
+                const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/add`, formData, {
+                    headers: { Authorization: `Bearer ${authToken}` }
+                })
+                const newRecipeID = result.data.data.id
+                console.log(result.data.data)
 
                 swal({
                     title: "Succes",
@@ -124,7 +125,7 @@ const AddRecipe = () => {
                 setVideo([])
 
                 e.target.reset()
-                // Router.push('/home')
+                Router.push(`/recipe/detail/${newRecipeID}`)
             } catch (error) {
                 console.log(error)
                 swal({
@@ -136,11 +137,6 @@ const AddRecipe = () => {
         }
     }
     // Handle Submit Add Recipe End
-
-    console.log(video)
-    console.log(photo)
-    console.log(recipeData)
-    console.log(authToken)
 
     return (
         <>
