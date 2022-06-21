@@ -1,0 +1,75 @@
+.navbar_container {
+    /* background: red; */
+    width: 100%;
+    position: sticky;
+    top: 0;
+    padding: 30px 100px;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    
+}
+.navbar_content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar_content ul {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 70px;
+}
+
+.navbar_content ul li {
+    list-style: none;
+}
+
+.navbar_content ul li a {
+    font-weight: 500;
+    font-size: 18px;
+    color: #2E266F;
+}
+
+.navbar_content ul li a:hover {
+    border-bottom: 3.5px solid #EFC81A;
+}
+
+.account {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.account a {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.icon {
+    width: 50px;
+    height: 50px;
+    background: #FFF;
+    border-radius: 50%;
+    border: 1px solid black;
+    position: relative;
+    /* overflow: hidden; */
+    padding: 11px;
+    position: relative;
+}
+
+.icon::before {
+    content: "5";
+    background: green;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: -5px;
+    left: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+}
+
+/* Responsive */
