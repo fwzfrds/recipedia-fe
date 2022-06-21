@@ -1,0 +1,115 @@
+.add_recipe {
+    width: 100%;
+    min-height: 100vh;
+    /* background: rgba(239, 200, 26, 1); */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.forms_container {
+    width: 80%;
+    height: max-content;
+    /* background: blue; */
+    margin-top: 20px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.dropzone_container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    border-radius: 6px;
+}
+
+.dropzone_container img {
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dropzone_img {
+    width: 100%;
+    height: 400px;
+    background: rgba(246, 245, 244, 1);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropzone_img div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.dropzone_img p {
+    margin: 0;
+    font-size: 16px;
+    color: #666666 !important;
+}
+
+.input_form {
+    height: 50px;
+    background: rgba(246, 245, 244, 1);
+    font-size: 16px;
+    color: #666666 !important;
+    border: none !important;
+}
+
+.input_form::placeholder {
+    color: #666666 !important;
+    font-size: 16px !important;
+}
+
+.input_textarea {
+    height: 300px !important;
+    width: 100%;
+    border-radius: 6px;
+    background: rgba(246, 245, 244, 1);
+    padding: 15px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 16px;
+    color: #666666;
+    border: none;
+}
+
+.input_textarea::placeholder {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 31px;
+    color: #666666;
+}
+
+.input_form.input_video {
+    width: 100% !important;
+    display: flex;
+    align-items: center;
+    padding-left: 15px;
+    border-radius: 6px;
+}
+
+.input_form.input_video label {
+    font-size: 16px;
+    color: #666666;
+}
+
+.form_button {
+    width: 426px;
+    height: 64px;
+    background: #EFC81A;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    color: #FFF;
+    cursor: pointer;
+}

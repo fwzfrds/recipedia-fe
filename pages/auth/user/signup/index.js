@@ -64,7 +64,7 @@ const UserRegister = () => {
                     icon: "success"
                 });
 
-                // router.push('/home')
+                router.push('/home')
             } else {
                 swal({
                     title: "Warning",

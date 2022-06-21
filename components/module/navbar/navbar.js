@@ -9,18 +9,18 @@ const Navbar = () => {
       <div className={`${styles.navbar_content}`}>
         <ul>
           <li>
-            <Link href={'/'}>
+            <Link href={'/home'}>
               <a>Home</a>
             </Link>
           </li>
           <li>
-            <Link href={'/add-recipe'}>
-              <a>Add Recipe</a>
+            <Link href={'/recipe/add'}>
+              Add Recipe
             </Link>
           </li>
           <li>
             <Link href={'/user/profile'}>
-              <a>Profile</a>
+              Profile
             </Link>
           </li>
         </ul>
@@ -29,7 +29,7 @@ const Navbar = () => {
             <Image src='/assets/img/icons/user-icon.png' alt='' width={30} height={25} />
           </div>
           <Link href={'/user/login'}>
-              <a>Login</a>
+              Login
             </Link>
         </div>
       </div>

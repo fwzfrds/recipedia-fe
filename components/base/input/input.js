@@ -9,6 +9,8 @@ const Input = ({
   placeholder, 
   value, 
   label,
+  style,
+  className,
   children
 }) => {
   return (
@@ -23,6 +25,8 @@ const Input = ({
         onChange={onChange}
         placeholder={placeholder}
         value={value}
+        style={style}
+        className={className}
       />
       {children}
     </div>
