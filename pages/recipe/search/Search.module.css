@@ -1,0 +1,47 @@
+.search_page {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.recipes {
+    width: 90%;
+    /* background: blue; */
+    /* display: flex; */
+}
+
+.actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.actions h3, .actions p {
+    margin: 0;
+}
+
+.actions form {
+    display: flex;
+    gap: 20px;
+}
+
+.sort_by {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.sort_order {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cards {
+    width: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}

@@ -14,7 +14,7 @@ const RecipeDetail = () => {
     const { id } = router.query
 
     const [ingredients, setIngredients] = useState(undefined)
-    const [image, setImage] = useState('https://fakeimg.pl/800x450/?text=Recipedia')
+    const [image, setImage] = useState('')
 
     const [recipeData, setRecipeData] = useState({
         title: ''
@@ -34,9 +34,6 @@ const RecipeDetail = () => {
         }
     }, [id])
 
-
-    console.log(recipeData)
-
     return (
         <>
             <Head>
@@ -47,9 +44,9 @@ const RecipeDetail = () => {
             <Layout1>
                 <div className={`${styles.recipe_details}`}>
                     <div className={`${styles.details_container}`}>
-                        <h1>{recipeData.title}</h1>
+                        <h1>{!recipeData.title ? 'Loading...' : recipeData.title}</h1>
                         <div className={`${styles.img_container}`}>
-                            <Image src={image} priority alt='' layout='fill' />
+                            <Image src={!image ? 'https://fakeimg.pl/800x450/?text=Recipedia' : `${image}`} priority alt='' layout='fill' />
                             <div className={`${styles.actions}`}>
                                 <div className={`${styles.saved}`}>
                                     <svg width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -69,7 +66,7 @@ const RecipeDetail = () => {
                                 
                             })} */}
                             <ul>
-                                {ingredients === undefined ? <p>Loading...</p> : 
+                                {!ingredients ? <p>Loading...</p> : 
                                     ingredients.map((ingredient, idx) => {
                                         return (
                                             <li key={idx}>{ingredient}</li>
