@@ -38,11 +38,11 @@ const UserLogin = () => {
                 console.log(result.data.data);
 
                 const dataLocal = {
-                    firstName: result.data.data.first_name,
-                    lastName: result.data.data.last_name,
+                    name: result.data.data.name,
                     id: result.data.data.id,
                     email: result.data.data.email,
-                    role: result.data.data.role,
+                    photo: result.data.data.photo,
+                    status: result.data.data.status,
                     token: result.data.data.token,
                     refreshToken: result.data.data.RefreshToken,
                 }
@@ -83,6 +83,7 @@ const UserLogin = () => {
             <div className={`${styles.user_login}`}>
                 <div className={`${styles.banner}`}>
                     <Image
+                        priority
                         className={`${styles.banner_img}`}
                         src={'/assets/img/banner/banner1.png'}
                         layout={'fill'}

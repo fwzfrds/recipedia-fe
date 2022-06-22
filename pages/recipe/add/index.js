@@ -23,6 +23,16 @@ const AddRecipe = () => {
 
     useEffect(() => {
         const dataFromLocal = JSON.parse(localStorage.getItem('RecipediaUser'))
+        console.log(dataFromLocal)
+        if (dataFromLocal === null) {
+            swal({
+                title: "warning!",
+                text: `You should login first to access this page`,
+                icon: "warning",
+            });
+            Router.push('/auth/user/login')
+            return
+        }
         setAuthToken(dataFromLocal.token)
     }, []);
 
