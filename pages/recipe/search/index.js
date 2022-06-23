@@ -67,6 +67,10 @@ const SearchRecipe = () => {
         fetchSort(sort)
     }
 
+    const handleRecipeClick = (id) => {
+        router.push(`/recipe/detail/${id}`)
+    }
+
     console.log(data)
     console.log(sort)
 
@@ -102,10 +106,10 @@ const SearchRecipe = () => {
                                 <button
                                     form='sort-form'
                                     type='submit'
-                                    // style={{
-                                    //     display: 'none'
-                                    // }}
-                                    
+                                // style={{
+                                //     display: 'none'
+                                // }}
+
                                 >Sort</button>
                             </form>
                         </div>
@@ -116,7 +120,7 @@ const SearchRecipe = () => {
                                         recipeName={recipe.title}
                                         photo={!recipe.photo ? 'https://fakeimg.pl/500x500/?text=Hello' : recipe.photo}
                                         key={idx}
-                                    // onClick={() => handleRecipeClick(recipe.id)}
+                                        onClick={() => handleRecipeClick(recipe.id)}
                                     />
                                 )
                             })}

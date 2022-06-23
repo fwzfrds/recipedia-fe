@@ -11,6 +11,7 @@ const Input = ({
   label,
   style,
   className,
+  defaultValue,
   children
 }) => {
   return (
@@ -27,6 +28,7 @@ const Input = ({
         value={value}
         style={style}
         className={className}
+        defaultValue={defaultValue}
       />
       {children}
     </div>

@@ -11,7 +11,7 @@ import swal from 'sweetalert'
 const RecipeDetail = () => {
 
     const router = useRouter()
-    const { id } = router.query
+    const { detail: id } = router.query
 
     const [ingredients, setIngredients] = useState(undefined)
     const [image, setImage] = useState('')

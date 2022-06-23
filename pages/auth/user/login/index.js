@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './UserLogin.module.css'
 import Image from 'next/image'
 import Head from 'next/head'
@@ -12,6 +12,18 @@ import { useRouter } from 'next/router'
 const UserLogin = () => {
 
     const router = useRouter()
+    console.log(router.query.activation)
+
+    useEffect(() => {
+      if(router.query.activation) {
+        swal({
+            title: "Congrats!",
+            text: `Your account has been activated!`,
+            icon: "success"
+        });
+      }
+    }, [router.query.activation])
+    
 
     const [loginData, setLoginData] = useState({
         email: '',
