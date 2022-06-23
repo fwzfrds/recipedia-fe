@@ -55,7 +55,7 @@ const UserLogin = () => {
                     icon: "success"
                 });
 
-                router.push('/home')
+                router.push('/')
             } else {
                 swal({
                     title: "Warning",

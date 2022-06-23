@@ -64,7 +64,7 @@ const UserRegister = () => {
                     icon: "success"
                 });
 
-                router.push('/home')
+                router.push('/auth/user/login')
             } else {
                 swal({
                     title: "Warning",
