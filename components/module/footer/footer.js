@@ -12,7 +12,7 @@ const Footer = () => {
     if (router.pathname === '/recipe/add' || router.pathname === '/user/profile' || router.pathname === '/recipe/detail/[id]') {
       setIsBanner(true)
     }
-  }, [])
+  }, [router.pathname])
 
 
   return (

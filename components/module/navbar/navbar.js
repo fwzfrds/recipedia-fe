@@ -1,3 +1,4 @@
+import React from 'react'
 import styles from './navbar.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -26,7 +27,7 @@ const Navbar = () => {
       default:
         break;
     }
-  }, [])
+  }, [router.pathname])
 
   const handleCheckbox = (e) => {
     setIsExpand(e.target.checked)

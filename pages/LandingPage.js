@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import Layout1 from "../components/Layout1"
+import Layout1 from "../components/layout1"
 import Card from '../components/module/card/card'
 import styles from '../styles/LandingPage.module.css'
 import axios from 'axios'

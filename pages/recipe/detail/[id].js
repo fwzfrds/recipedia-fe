@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import Layout1 from '../../../components/Layout1'
+import Layout1 from '../../../components/layout1'
 import styles from './RecipeDetail.module.css'
 import { useRouter } from 'next/router'
 import axios from 'axios'

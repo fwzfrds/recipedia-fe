@@ -1,6 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
-import Layout1 from '../../../components/Layout1'
+import Layout1 from '../../../components/layout1'
 
 const Profile = () => {
     return (

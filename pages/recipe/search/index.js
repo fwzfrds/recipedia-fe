@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Layout1 from '../../../components/Layout1'
+import Layout1 from '../../../components/layout1'
 import Head from 'next/head'
 import styles from './Search.module.css'
 import Card from '../../../components/module/card/card'
