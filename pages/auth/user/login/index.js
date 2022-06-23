@@ -156,7 +156,7 @@ const UserLogin = () => {
                         </div>
                         <div className={`${styles.direct}`}>
                             <p>Don’t have an account?</p>
-                            <Link href="/auth/user/registration">
+                            <Link href="/auth/user/signup">
                                 <a>Sign Up</a>
                             </Link>
                         </div>

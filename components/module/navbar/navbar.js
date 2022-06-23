@@ -68,7 +68,7 @@ const Navbar = () => {
             <div className={`${styles.icon}`}>
               <Image src='/assets/img/icons/user-icon.png' alt='' width={30} height={25} />
             </div>
-            <Link href={'/user/login'}>
+            <Link href={'/auth/user/login'}>
               Login
             </Link>
           </div>

@@ -190,15 +190,15 @@ const UserRegister = () => {
                                 cursor: 'pointer'
                             }}
                         />
-                        <div className={`${styles.forget}`}>
+                        {/* <div className={`${styles.forget}`}>
                             <Link href="/auth/user/reset-password">
                                 <a>Forgot Password ?</a>
                             </Link>
-                        </div>
+                        </div> */}
                         <div className={`${styles.direct}`}>
-                            <p>Don’t have an account?</p>
-                            <Link href="/auth/user/registration">
-                                <a>Sign Up</a>
+                            <p>Already have Recipedia account?</p>
+                            <Link href="/auth/user/login">
+                                <a>Log in</a>
                             </Link>
                         </div>
                     </div>
