@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['fakeimg.pl', 'localhost', 'recipedia-fwzfrds.vercel.app'],
+    domains: ['fakeimg.pl', 'localhost', 'vercel.app'],
   },
 }
 
