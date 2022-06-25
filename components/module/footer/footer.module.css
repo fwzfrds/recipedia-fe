@@ -42,3 +42,29 @@
     font-size: 16px;
     color: #707070;
 }
+
+@media only screen and (max-width: 600px) {
+    
+    .footer_banner {
+        height: 100px;
+    }
+
+    .footer_banner h1 {
+        font-size: 20px;
+        margin: 0;
+    }
+
+    .footer_banner p {
+        font-size: 12px;
+        margin: 0;
+    }
+
+    .footer_menu ul {
+        padding-left: 0px;
+    }
+
+    .footer_menu ul li {
+        font-size: 12px;
+    }
+
+}

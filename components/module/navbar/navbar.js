@@ -36,7 +36,7 @@ const Navbar = () => {
   return (
     <>
       <Head>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
+        <link rel={'stylesheet'} href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
       </Head>
       <nav className={`${styles.navbar_container}`}>
         <div className={`${styles.navbar_content}`}>
@@ -74,7 +74,26 @@ const Navbar = () => {
           </div>
 
           <div className={`${styles.expand_toggler}`}>
-            {isExpand ? <i className="fa-solid fa-xmark"></i> : <i className="fa-solid fa-bars"></i>}
+            <div className={`${styles.toggler_icon}`}
+              style={{
+                // background: 'blue'
+              }}
+            >
+              {isExpand ?
+                <i className="fa-solid fa-xmark"
+                  style={{
+                    width: '100%',
+                    height: '100%'
+                  }}
+                ></i>
+                :
+                <i className="fa-solid fa-bars"
+                  style={{
+                    width: 40,
+                    height: 40
+                  }}
+                ></i>}
+            </div>
 
 
             <input
@@ -89,27 +108,27 @@ const Navbar = () => {
           style={isExpand ? { display: 'block' } : { display: 'none' }}
         >
           <ul>
-              <li
-                className={isPageActive === 'home' ? `${styles.navbar_active}` : ''}
-              >
-                <Link href={'/'}>
-                  <a>Home</a>
-                </Link>
-              </li>
-              <li
-                className={isPageActive === 'add' ? `${styles.navbar_active}` : ''}
-              >
-                <Link href={'/recipe/add'}>
-                  Add Recipe
-                </Link>
-              </li>
-              <li
-                className={isPageActive === 'profile' ? `${styles.navbar_active}` : ''}
-              >
-                <Link href={'/user/profile'}>
-                  Profile
-                </Link>
-              </li>
+            <li
+              className={isPageActive === 'home' ? `${styles.navbar_active}` : ''}
+            >
+              <Link href={'/'}>
+                <a>Home</a>
+              </Link>
+            </li>
+            <li
+              className={isPageActive === 'add' ? `${styles.navbar_active}` : ''}
+            >
+              <Link href={'/recipe/add'}>
+                Add Recipe
+              </Link>
+            </li>
+            <li
+              className={isPageActive === 'profile' ? `${styles.navbar_active}` : ''}
+            >
+              <Link href={'/user/profile'}>
+                Profile
+              </Link>
+            </li>
           </ul>
         </div>
       </nav>

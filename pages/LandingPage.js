@@ -62,9 +62,9 @@ const LandingPage = () => {
                 />
                 <Button
                   type={'submit'}
-                  style={{ 
+                  style={{
                     display: 'none'
-                   }}
+                  }}
                 />
               </form>
             </div>
@@ -92,6 +92,10 @@ const LandingPage = () => {
 
             </div>
           </div>
+          {/* <video src="https://res.cloudinary.com/muhislah/video/upload/v1655942686/nono/ykjjtzjreoda2oprrrvk.mp4"></video> */}
+          {/* <video controls>
+            <source src="https://res.cloudinary.com/muhislah/video/upload/v1655942686/nono/ykjjtzjreoda2oprrrvk.mp4" type="video/mp4" />
+          </video> */}
         </div>
       </Layout1>
     </>
