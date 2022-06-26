@@ -4,8 +4,6 @@ import Image from 'next/image'
 
 const Card = ({ recipeName, photo, style, onClick }) => {
 
-    
-
     return (
         <div
             className={`${styles.card}`}

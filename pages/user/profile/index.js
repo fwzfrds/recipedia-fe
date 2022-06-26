@@ -1,11 +1,101 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Layout1 from '../../../components/layout1'
 import styles from './Profile.module.css'
 import Image from 'next/image'
 import UserAva from '../../../components/base/userAva/Image'
+import UserRecipes from '../../../components/layout2'
+import swal from 'sweetalert'
+import { useRouter } from 'next/router'
+import axios from 'axios'
 
 const Profile = () => {
+
+    const router = useRouter()
+    const [authToken, setAuthToken] = useState('')
+    const [userData, setUserData] = useState('')
+    const [recipesData, setRecipesData] = useState('')
+    const [menuActive, setMenuActive] = useState('my_recipe')
+
+    useEffect(() => {
+        const dataFromLocal = JSON.parse(localStorage.getItem('RecipediaUser'))
+        if (dataFromLocal === null) {
+            swal({
+                title: "warning!",
+                text: `You should login first to access this page`,
+                icon: "warning",
+            });
+            router.push('/auth/user/login')
+            return
+        }
+        setAuthToken(dataFromLocal.token)
+    }, [router])
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            try {
+                const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/profile`, {
+                    headers: { Authorization: `Bearer ${authToken}` }
+                })
+                const data = result.data.data
+                setUserData(data)
+            } catch (error) {
+                console.log(error)
+                swal({
+                    title: "warning!",
+                    text: `${error.response.data.message}`,
+                    icon: "warning",
+                })
+
+                // router.push('/auth/user/login')
+            }
+
+        }
+        if (authToken) {
+            fetchUser()
+        }
+    }, [authToken])
+
+    useEffect(() => {
+        const fetchRecipes = async () => {
+            try {
+                console.log(authToken)
+                if (menuActive === 'my_recipe') {
+                    const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/user-recipe`, {
+                        headers: { Authorization: `Bearer ${authToken}` }
+                    })
+                    const data = result.data
+                    setRecipesData(data)
+                } else if (menuActive === 'liked_recipe') {
+                    const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/liked?page=1&limit=4`, {
+                        headers: { Authorization: `Bearer ${authToken}` }
+                    })
+                    const data = result.data
+                    setRecipesData(data)
+                } else if (menuActive === 'saved_recipe') {
+                    const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/saved?page=1&limit=4`, {
+                        headers: { Authorization: `Bearer ${authToken}` }
+                    })
+                    const data = result.data
+                    setRecipesData(data)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        if (menuActive && authToken) {
+            fetchRecipes()
+        }
+    }, [menuActive, authToken])
+
+    const handleClickMenu = (e) => {
+        const data = (e.target.innerText).toLowerCase()
+        setMenuActive(data.replace(' ', '_'))
+    }
+
+    console.log(menuActive)
+    console.log(recipesData)
+
     return (
         <>
             <Head>
@@ -18,7 +108,7 @@ const Profile = () => {
                     <div className={`${styles.ava_container}`}>
                         <div className={`${styles.user_ava}`}>
                             <UserAva
-                                source={'/assets/img/dummy-img.jpg'}
+                                source={userData ? userData.photo : '/assets/img/dummy-img.jpg'}
                                 style={{
                                     width: 100,
                                     height: 100,
@@ -32,9 +122,14 @@ const Profile = () => {
                                 </svg>
                             </UserAva>
                         </div>
-                        <h3>Garneta Sharina</h3>
+                        <h3>{userData?.name}</h3>
                     </div>
 
+                    <UserRecipes
+                        onClickMenu={handleClickMenu}
+                        menuActive={menuActive}
+                        recipesData={recipesData ? recipesData : ''}
+                    />
                 </div>
             </Layout1>
         </>

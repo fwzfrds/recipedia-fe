@@ -20,7 +20,7 @@ const Footer = () => {
       {isBanner &&
         <div className={`${styles.footer_banner}`}>
           <h1>Eat, Cook, Repeat</h1>
-          <p>Share your best recipe by uploading here !</p>
+          <p><Link href={'/recipe/add'}>Share your best recipe by uploading here !</Link></p>
         </div>
       }
       <div className={`${styles.footer}`}>
