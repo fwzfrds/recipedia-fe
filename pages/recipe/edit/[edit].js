@@ -199,6 +199,45 @@ const EditRecipe = () => {
     }
     // Handle Submit Add Recipe End
 
+    const handleDelRecipe = () => {
+
+        swal({
+            title: "Are you sure?",
+            text: `This recipe will be deleted`,
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then(async (isOkay) => {
+            if (isOkay) {
+                try {
+                    await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/${id}`, {
+                        headers: { Authorization: `Bearer ${authToken}` }
+                    })
+
+                    swal({
+                        title: "Succes",
+                        text: `${title} recipe has been deleted`,
+                        icon: "success",
+                    })
+                    router.push('/user/profile')
+                } catch (error) {
+                    console.log(error)
+                    swal({
+                        title: "Error!",
+                        text: `Error delete recipe`,
+                        icon: "error",
+                    });
+                }
+            } else {
+                swal({
+                    title: 'warning',
+                    text: `The recipe still in your list`,
+                    icon: 'warning',
+                });
+            }
+        })
+    }
+
     return (
         <>
             <Head>
@@ -293,10 +332,16 @@ const EditRecipe = () => {
                     <Button
                         className={`${styles.form_button}`}
                         type={'submit'}
-                        text={'Post'}
+                        text={'Save Update'}
                         form={'recipe-form'}
                     />
                     {isLoading === true ? <p>Loading Update...</p> : ''}
+                    <Button
+                        className={`${styles.form_button_delete}`}
+                        type={'button'}
+                        text={'Delete Recipe'}
+                        onClick={handleDelRecipe}
+                    />
                 </div>
             </Layout1>
         </>
