@@ -8,7 +8,7 @@ import styles from '../styles/LandingPage.module.css'
 import axios from 'axios'
 import Button from '../components/base/button/button'
 
-const LandingPage = ({products}) => {
+const LandingPage = ({ products }) => {
 
   const router = useRouter()
   const [data, setData] = useState('')
@@ -25,8 +25,8 @@ const LandingPage = ({products}) => {
     fetch()
   }, [])
 
-  useEffect(()=> {
-    if(products) {
+  useEffect(() => {
+    if (products) {
       setSeverSideData(products)
     }
   }, [products])
