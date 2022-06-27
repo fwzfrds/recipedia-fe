@@ -12,6 +12,7 @@ const LandingPage = ({products}) => {
 
   const router = useRouter()
   const [data, setData] = useState('')
+  const [serverSideData, setSeverSideData] = useState('')
   const [recipes, setRecipes] = useState('')
   const [searchValue, setSearchValue] = useState('')
 
@@ -23,6 +24,14 @@ const LandingPage = ({products}) => {
     }
     fetch()
   }, [])
+
+  useEffect(()=> {
+    if(products) {
+      setSeverSideData(products)
+    }
+  }, [products])
+
+  console.log(serverSideData)
 
   const handleRecipeClick = (id) => {
     router.push(`/recipe/detail/${id}`)
@@ -39,7 +48,7 @@ const LandingPage = ({products}) => {
     router.push(`/recipe/search?keyword=${searchValue}`)
   }
 
-  console.log(products)
+  // console.log(products)
 
   return (
     <>
@@ -79,7 +88,7 @@ const LandingPage = ({products}) => {
           <div className={`${styles.popular}`}>
             <h3>Popular Recipes</h3>
             <div className={`${styles.cards}`}>
-              {!data ? <h4>Loading...</h4> : recipes.map((recipe, idx) => {
+              {!serverSideData ? <h4>Loading...</h4> : serverSideData.map((recipe, idx) => {
                 return (
                   <Card
                     recipeName={recipe.title}
@@ -102,22 +111,6 @@ const LandingPage = ({products}) => {
       </Layout1>
     </>
   )
-}
-
-export const getServerSideProps = async (context) => {
-  try {
-    // const { id } = context.params
-    console.log(context.params)
-    const { data: RespData } = await axios.get(`http://localhost:4000/v1/recipes`)
-    const result = RespData.data
-    console.log('test server side')
-    // console.log(result)
-    return {
-      props: { products: RespData.data }
-    }
-  } catch (error) {
-    console.log(error)
-  }
 }
 
 export default LandingPage

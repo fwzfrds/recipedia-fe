@@ -1,10 +1,24 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
 import LandingPage from './LandingPage'
+import axios from 'axios'
 
-export default function Home() {
+export default function Home({products}) {
   return (
-    <LandingPage></LandingPage>
+    <LandingPage
+      products={products}
+    ></LandingPage>
   )
+}
+
+export const getServerSideProps = async (context) => {
+  try {
+    // server side props cannot return object
+    const {data} = await axios.get(`http://localhost:4000/v1/recipes`)
+    const result = data.data
+  
+    return {
+      props: { products: result }
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }

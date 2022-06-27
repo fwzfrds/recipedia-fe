@@ -8,35 +8,48 @@ import axios from 'axios'
 import swal from 'sweetalert'
 // import Loading from '../../../components/base/loading/loading'
 
-const RecipeDetail = () => {
+const RecipeDetail = ({ recipe }) => {
 
-    const router = useRouter()
-    const { detail: id } = router.query
+    // const router = useRouter()
+    // const { detail: id } = router.query
+
+    console.log(recipe)
 
     const [ingredients, setIngredients] = useState(undefined)
     const [image, setImage] = useState('')
     const [video, setVideo] = useState('')
+    const [title, setTitle] = useState('')
+    const [author, setAuthor] = useState('')
 
-    const [recipeData, setRecipeData] = useState({
-        title: ''
-    })
+    // const [recipeData, setRecipeData] = useState({
+    //     title: ''
+    // })
 
     useEffect(() => {
-        if (id) {
-            const fetch = async () => {
-                const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/detail/${id}`)
-                const data = result.data.data
-                data.ingredients = (data.ingredients).split(',')
-                setRecipeData(data)
-                setIngredients(data.ingredients)
-                setImage(data.photo)
-                setVideo(data.video)
-            }
-            fetch()
+        if (recipe) {
+            // setRecipeData(recipe)
+            setTitle(recipe.title)
+            setAuthor(recipe.recipe_by)
+            setIngredients((recipe.ingredients).split(','))
+            setImage(recipe.photo)
+            setVideo(recipe.video)
         }
-    }, [id])
+    }, [recipe])
 
-    console.log(video)
+    // useEffect(() => {
+    //     if (id) {
+    //         const fetch = async () => {
+    //             const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/detail/${id}`)
+    //             const data = result.data.data
+    //             data.ingredients = (data.ingredients).split(',')
+    //             setRecipeData(data)
+    //             setIngredients(data.ingredients)
+    //             setImage(data.photo)
+    //             setVideo(data.video)
+    //         }
+    //         fetch()
+    //     }
+    // }, [id])
 
     return (
         <>
@@ -48,7 +61,8 @@ const RecipeDetail = () => {
             <Layout1>
                 <div className={`${styles.recipe_details}`}>
                     <div className={`${styles.details_container}`}>
-                        <h1>{!recipeData.title ? 'Loading...' : recipeData.title}</h1>
+                        <h1>{!title ? 'Loading...' : title}</h1>
+                        <p>recipe by : {!author ? 'john doe' : author}</p>
                         <div className={`${styles.img_container}`}>
                             <Image src={!image ? 'https://fakeimg.pl/800x450/?text=Recipedia' : `${image}`} priority alt='' layout='fill' />
                             <div className={`${styles.actions}`}>
@@ -92,6 +106,23 @@ const RecipeDetail = () => {
             </Layout1>
         </>
     )
+}
+
+export const getServerSideProps = async (context) => {
+    try {
+        // server side props cannot return object
+        const recipeID = context.params.detail
+        console.log(recipeID)
+        const { data } = await axios.get(`http://localhost:4000/v1/recipes/detail/${recipeID}`)
+        const result = data.data
+
+        return {
+            props: { recipe: result }
+            // props: {}
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export default RecipeDetail

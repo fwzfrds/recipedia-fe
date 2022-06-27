@@ -147,20 +147,20 @@ const Profile = () => {
     )
 }
 
-export const getServerSideProps = async (context) => {
-    try {
-      // const { id } = context.params
-      console.log(context.params)
-      const { data: RespData } = await axios.get(`http://localhost:4000/v1/recipes`)
-      const result = RespData.data
-      console.log('test server side')
-      // console.log(result)
-      return {
-        props: { products: RespData.data }
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
+// export const getServerSideProps = async (context) => {
+//     try {
+//       // const { id } = context.params
+//       console.log(context.params)
+//       const { data: RespData } = await axios.get(`http://localhost:4000/v1/recipes`)
+//       const result = RespData.data
+//       console.log('test server side')
+//       // console.log(result)
+//       return {
+//         props: { products: RespData.data }
+//       }
+//     } catch (error) {
+//       console.log(error)
+//     }
+//   }
 
 export default Profile
