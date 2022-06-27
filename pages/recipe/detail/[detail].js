@@ -15,6 +15,7 @@ const RecipeDetail = () => {
 
     const [ingredients, setIngredients] = useState(undefined)
     const [image, setImage] = useState('')
+    const [video, setVideo] = useState('')
 
     const [recipeData, setRecipeData] = useState({
         title: ''
@@ -29,6 +30,7 @@ const RecipeDetail = () => {
                 setRecipeData(data)
                 setIngredients(data.ingredients)
                 setImage(data.photo)
+                setVideo(data.video)
             }
             fetch()
         }
@@ -66,7 +68,7 @@ const RecipeDetail = () => {
                                 
                             })} */}
                             <ul>
-                                {!ingredients ? <p>Loading...</p> : 
+                                {!ingredients ? <p>Loading...</p> :
                                     ingredients.map((ingredient, idx) => {
                                         return (
                                             <li key={idx}>{ingredient}</li>
@@ -75,8 +77,11 @@ const RecipeDetail = () => {
                                 }
                             </ul>
                         </div>
-                        <div className={`${styles.ingredients}`}>
+                        <div className={`${styles.video_step}`}>
                             <h3>Video Step</h3>
+                            <video width="500" controls>
+                                <source src="http://res.cloudinary.com/wazcomp/video/upload/v1655991776/recipedia/videos/pj9cwoqqbo9n6xhucmwa.mp4" type="video/mp4" />
+                            </video>
                         </div>
                     </div>
                 </div>

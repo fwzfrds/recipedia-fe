@@ -12,6 +12,7 @@ const SearchRecipe = () => {
     const router = useRouter()
     const [recipes, setRecipes] = useState('')
     const [data, setData] = useState('')
+    const [pageActive, setPageActive] = useState(1)
     const [sortBy, setSortBy] = useState('')
     const [sortOrder, setSortOrder] = useState('')
     const [sort, setSort] = useState({
@@ -46,9 +47,8 @@ const SearchRecipe = () => {
     }, [router.query.keyword])
 
     const handlePage = (page) => {
-        console.log(page)
-        console.log('Sedang menjalankan pagination...')
         fetchData(page)
+        setPageActive(page)
     }
 
     const handleSelectBy = (e) => {
@@ -126,15 +126,17 @@ const SearchRecipe = () => {
                             })}
 
                         </div>
-                        {data ? new Array(data.pagination.totalPage).fill().map((item, idx) =>
-                            <button
-                                key={idx}
-                                onClick={() => handlePage(idx + 1)}
-                            >
-                                {idx + 1}
-                            </button>
-                        ) : <p>Loading...</p>}
-
+                        <div className={`${styles.pagination}`}>
+                            {data ? new Array(data.pagination.totalPage).fill().map((item, idx) =>
+                                <button
+                                    className={pageActive === idx + 1 ?`${styles.page} ${styles.page_active}` : `${styles.page}`}
+                                    key={idx}
+                                    onClick={() => handlePage(idx + 1)}
+                                >
+                                    {idx + 1}
+                                </button>
+                            ) : <p>Loading...</p>}
+                        </div>
                     </div>
                 </div>
             </Layout1>
