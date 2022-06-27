@@ -34,8 +34,12 @@ const Profile = () => {
     useEffect(() => {
         const fetchUser = async () => {
             try {
+                // const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/profile`, {
+                //     headers: { Authorization: `Bearer ${authToken}` }
+                // })
                 const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/profile`, {
-                    headers: { Authorization: `Bearer ${authToken}` }
+                    // headers: { Authorization: `Bearer ${authToken}` },
+                    withCredentials: true
                 })
                 const data = result.data.data
                 setUserData(data)
@@ -62,25 +66,32 @@ const Profile = () => {
                 console.log(authToken)
                 if (menuActive === 'my_recipe') {
                     const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/user-recipe`, {
-                        headers: { Authorization: `Bearer ${authToken}` }
+                        // headers: { Authorization: `Bearer ${authToken}` },
+                        withCredentials: true
                     })
                     const data = result.data
                     setRecipesData(data)
                 } else if (menuActive === 'liked_recipe') {
                     const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/liked?page=1&limit=4`, {
-                        headers: { Authorization: `Bearer ${authToken}` }
+                        // headers: { Authorization: `Bearer ${authToken}` }
+                        withCredentials: true
                     })
                     const data = result.data
                     setRecipesData(data)
                 } else if (menuActive === 'saved_recipe') {
                     const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/saved?page=1&limit=4`, {
-                        headers: { Authorization: `Bearer ${authToken}` }
+                        // headers: { Authorization: `Bearer ${authToken}` }
+                        withCredentials: true
                     })
                     const data = result.data
                     setRecipesData(data)
                 }
             } catch (error) {
-                console.log(error)
+                if (error.response.data.message === 'Data not found') {
+                    setRecipesData('')
+                } else {
+                    console.log(error)
+                }
             }
         }
         if (menuActive && authToken) {
@@ -135,5 +146,21 @@ const Profile = () => {
         </>
     )
 }
+
+export const getServerSideProps = async (context) => {
+    try {
+      // const { id } = context.params
+      console.log(context.params)
+      const { data: RespData } = await axios.get(`http://localhost:4000/v1/recipes`)
+      const result = RespData.data
+      console.log('test server side')
+      // console.log(result)
+      return {
+        props: { products: RespData.data }
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 export default Profile

@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 const UserLogin = () => {
 
     const router = useRouter()
-    console.log(router.query.activation)
+    // console.log(router.query.activation)
 
     useEffect(() => {
       if(router.query.activation) {
@@ -46,7 +46,7 @@ const UserLogin = () => {
 
         try {
             if (isAgree) {
-                const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/login`, loginData)
+                const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/login`, loginData, {withCredentials: true})
                 console.log(result.data.data);
 
                 const dataLocal = {

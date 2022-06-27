@@ -16,6 +16,7 @@ const AddRecipe = () => {
     const [video, setVideo] = useState([])
     const [photo, setPhoto] = useState([])
     const [authToken, setAuthToken] = useState([])
+    const [uploadProgress, setUploadProgress] = useState(0)
     const [recipeData, setRecipeData] = useState({
         title: '',
         ingredients: ''
@@ -118,13 +119,27 @@ const AddRecipe = () => {
             formData.append('title', recipeData.title)
             formData.append('ingredients', recipeData.ingredients)
 
+
+
             try {
                 const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/add`, formData, {
-                    headers: { Authorization: `Bearer ${authToken}` }
+                    // headers: { Authorization: `Bearer ${authToken}` }
+                    withCredentials: true,
+                    onUploadProgress: progressEvent => {
+                        let percent = Math.floor((progressEvent.loaded * 100) / progressEvent.total)
+                        console.log(`${progressEvent.loaded}kb of ${progressEvent.total}kb | ${percent}%`)
+
+                        if (percent < 98) {
+                            setUploadProgress(percent)
+                        }
+                    }
                 })
                 const newRecipeID = result.data.data.id
                 console.log(result.data.data)
-
+                setUploadProgress(100)
+                setTimeout(() => {
+                    setUploadProgress(0)
+                }, 1000)
                 swal({
                     title: "Succes",
                     text: 'Post New Recipe Success',
@@ -147,6 +162,8 @@ const AddRecipe = () => {
         }
     }
     // Handle Submit Add Recipe End
+
+    console.log(uploadProgress)
 
     return (
         <>
@@ -223,6 +240,9 @@ const AddRecipe = () => {
                         text={'Post'}
                         form={'recipe-form'}
                     />
+                    {uploadProgress ?
+                        <h3>Uploading... {uploadProgress}%</h3> : <></>
+                    }
                 </div>
             </Layout1>
         </>

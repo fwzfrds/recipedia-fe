@@ -36,6 +36,8 @@ const RecipeDetail = () => {
         }
     }, [id])
 
+    console.log(video)
+
     return (
         <>
             <Head>
@@ -79,9 +81,11 @@ const RecipeDetail = () => {
                         </div>
                         <div className={`${styles.video_step}`}>
                             <h3>Video Step</h3>
-                            <video width="500" controls>
-                                <source src="http://res.cloudinary.com/wazcomp/video/upload/v1655991776/recipedia/videos/pj9cwoqqbo9n6xhucmwa.mp4" type="video/mp4" />
-                            </video>
+                            {video &&
+                                <video width="500" controls>
+                                    <source src={video} type="video/mp4" />
+                                </video>
+                            }
                         </div>
                     </div>
                 </div>

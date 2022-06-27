@@ -40,7 +40,7 @@ const UserRecipes = ({ onClickMenu, menuActive, recipesData }) => {
                     )
                 })
                     :
-                    <h3>Loading...</h3>}
+                    <h3>Empty, Let&apos;s add some recipes to this list</h3>}
 
             </div>
         </div>

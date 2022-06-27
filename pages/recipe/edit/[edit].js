@@ -23,6 +23,7 @@ const EditRecipe = () => {
     const [authToken, setAuthToken] = useState([])
     const [recipeData, setRecipeData] = useState({})
     const [recipeUpdate, setRecipeUpdate] = useState({})
+    const [uploadProgress, setUploadProgress] = useState(0)
     const [ingredients, setIngredients] = useState(undefined)
     const [title, setTitle] = useState(undefined)
     const [isLoading, setIsLoading] = useState(false)
@@ -165,14 +166,27 @@ const EditRecipe = () => {
                 return
             }
 
-            setIsLoading(true)
+            // setIsLoading(true)
 
             const result = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/edit/${id}`, formData, {
-                headers: { Authorization: `Bearer ${authToken}` }
+                // headers: { Authorization: `Bearer ${authToken}` },
+                withCredentials: true,
+                onUploadProgress: progressEvent => {
+                    let percent = Math.floor((progressEvent.loaded * 100) / progressEvent.total)
+                    console.log(`${progressEvent.loaded}kb of ${progressEvent.total}kb | ${percent}%`)
+
+                    if (percent < 98) {
+                        setUploadProgress(percent)
+                    }
+                }
             })
             // const newRecipeID = result.data.data.id
             console.log(result.data.data)
-            setIsLoading(false)
+            // setIsLoading(false)
+            setUploadProgress(100)
+            setTimeout(() => {
+                setUploadProgress(0)
+            }, 1000)
 
             swal({
                 title: "Succes",
@@ -186,7 +200,7 @@ const EditRecipe = () => {
             // nanti kalo sudah terupdate harusnya reload disini untuk dapat data terupdate cari caranya nanti
 
             // e.target.reset()
-            // Router.push(`/recipe/detail/${newRecipeID}`)
+            Router.push(`/recipe/detail/${id}`)
         } catch (error) {
             console.log(error)
             swal({
@@ -211,7 +225,8 @@ const EditRecipe = () => {
             if (isOkay) {
                 try {
                     await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/${id}`, {
-                        headers: { Authorization: `Bearer ${authToken}` }
+                        // headers: { Authorization: `Bearer ${authToken}` },
+                        withCredentials: true
                     })
 
                     swal({
@@ -335,13 +350,17 @@ const EditRecipe = () => {
                         text={'Save Update'}
                         form={'recipe-form'}
                     />
-                    {isLoading === true ? <p>Loading Update...</p> : ''}
+                    {/* {isLoading === true ? <p>Loading Update...</p> : ''} */}
+                    {uploadProgress ?
+                        <h3>Updating... {uploadProgress}%</h3> : <></>
+                    }
                     <Button
                         className={`${styles.form_button_delete}`}
                         type={'button'}
                         text={'Delete Recipe'}
                         onClick={handleDelRecipe}
                     />
+                    
                 </div>
             </Layout1>
         </>
