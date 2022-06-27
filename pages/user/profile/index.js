@@ -9,61 +9,30 @@ import swal from 'sweetalert'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 
-const Profile = () => {
+const Profile = ({ profile, isAuth, cookie }) => {
 
     const router = useRouter()
-    const [authToken, setAuthToken] = useState('')
     const [userData, setUserData] = useState('')
     const [recipesData, setRecipesData] = useState('')
     const [menuActive, setMenuActive] = useState('my_recipe')
 
     useEffect(() => {
-        const dataFromLocal = JSON.parse(localStorage.getItem('RecipediaUser'))
-        if (dataFromLocal === null) {
+        if (isAuth) {
+            setUserData(profile)
+        } else {
             swal({
-                title: "warning!",
-                text: `You should login first to access this page`,
-                icon: "warning",
+                title: "Warning!",
+                text: `Please login to access this page!`,
+                icon: "warning"
             });
             router.push('/auth/user/login')
-            return
         }
-        setAuthToken(dataFromLocal.token)
-    }, [router])
-
-    useEffect(() => {
-        const fetchUser = async () => {
-            try {
-                // const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/profile`, {
-                //     headers: { Authorization: `Bearer ${authToken}` }
-                // })
-                const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/profile`, {
-                    // headers: { Authorization: `Bearer ${authToken}` },
-                    withCredentials: true
-                })
-                const data = result.data.data
-                setUserData(data)
-            } catch (error) {
-                console.log(error)
-                swal({
-                    title: "warning!",
-                    text: `${error.response.data.message}`,
-                    icon: "warning",
-                })
-
-                // router.push('/auth/user/login')
-            }
-
-        }
-        if (authToken) {
-            fetchUser()
-        }
-    }, [authToken])
+    }, [isAuth, profile, router])
 
     useEffect(() => {
         const fetchRecipes = async () => {
             try {
-                console.log(authToken)
+                // console.log(authToken)
                 if (menuActive === 'my_recipe') {
                     const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/user-recipe`, {
                         // headers: { Authorization: `Bearer ${authToken}` },
@@ -94,18 +63,15 @@ const Profile = () => {
                 }
             }
         }
-        if (menuActive && authToken) {
+        if (menuActive && isAuth) {
             fetchRecipes()
         }
-    }, [menuActive, authToken])
+    }, [menuActive, isAuth])
 
     const handleClickMenu = (e) => {
         const data = (e.target.innerText).toLowerCase()
         setMenuActive(data.replace(' ', '_'))
     }
-
-    console.log(menuActive)
-    console.log(recipesData)
 
     return (
         <>
@@ -147,20 +113,38 @@ const Profile = () => {
     )
 }
 
-// export const getServerSideProps = async (context) => {
-//     try {
-//       // const { id } = context.params
-//       console.log(context.params)
-//       const { data: RespData } = await axios.get(`http://localhost:4000/v1/recipes`)
-//       const result = RespData.data
-//       console.log('test server side')
-//       // console.log(result)
-//       return {
-//         props: { products: RespData.data }
-//       }
-//     } catch (error) {
-//       console.log(error)
-//     }
-//   }
+export const getServerSideProps = async (context) => {
+    try {
+        let cookie = ''
+        let result = {}
+        let isAuth = false
+        if (context.req.headers.cookie) {
+            cookie = context.req.headers.cookie
+            cookie = cookie.split('=')
+            cookie = cookie[1]
+
+            isAuth = true
+
+            const { data: RespData } = await axios.get(`http://localhost:4000/v1/users/profile`, {
+                withCredentials: true, headers: {
+                    Cookie: context.req.headers.cookie
+                }
+            })
+            result = RespData.data
+        }
+
+        return {
+            props: {
+                profile: result,
+                isAuth,
+                cookie
+            }
+        }
+
+
+    } catch (error) {
+        console.log(error)
+    }
+}
 
 export default Profile

@@ -1,7 +1,7 @@
 import LandingPage from './LandingPage'
 import axios from 'axios'
 
-export default function Home({products}) {
+export default function Home({ products }) {
   return (
     <LandingPage
       products={products}
@@ -12,11 +12,13 @@ export default function Home({products}) {
 export const getServerSideProps = async (context) => {
   try {
     // server side props cannot return object
-    const {data} = await axios.get(`http://localhost:4000/v1/recipes`)
+    const { data } = await axios.get(`http://localhost:4000/v1/recipes`)
     const result = data.data
-  
+
     return {
-      props: { products: result }
+      props: { 
+        products: result
+      }
     }
   } catch (error) {
     console.log(error)

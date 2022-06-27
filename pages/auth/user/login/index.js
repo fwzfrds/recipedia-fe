@@ -20,7 +20,7 @@ const UserLogin = () => {
             title: "Congrats!",
             text: `Your account has been activated!`,
             icon: "success"
-        });
+        })
       }
     }, [router.query.activation])
     

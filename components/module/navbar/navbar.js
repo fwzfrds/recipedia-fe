@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 
 const Navbar = () => {
-
+  
   const router = useRouter()
   const [isPageActive, setisPageActive] = useState('')
   const [isExpand, setIsExpand] = useState(false)

@@ -31,8 +31,6 @@ const LandingPage = ({products}) => {
     }
   }, [products])
 
-  console.log(serverSideData)
-
   const handleRecipeClick = (id) => {
     router.push(`/recipe/detail/${id}`)
   }
@@ -47,8 +45,6 @@ const LandingPage = ({products}) => {
 
     router.push(`/recipe/search?keyword=${searchValue}`)
   }
-
-  // console.log(products)
 
   return (
     <>
