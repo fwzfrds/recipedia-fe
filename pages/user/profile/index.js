@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Layout1 from '../../../components/layout1'
 import styles from './Profile.module.css'
-import Image from 'next/image'
+// import Image from 'next/image'
 import UserAva from '../../../components/base/userAva/Image'
 import UserRecipes from '../../../components/layout2'
 import swal from 'sweetalert'
@@ -140,7 +140,6 @@ export const getServerSideProps = async (context) => {
                 cookie
             }
         }
-
 
     } catch (error) {
         console.log(error)

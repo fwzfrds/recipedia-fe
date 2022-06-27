@@ -10,12 +10,11 @@ import Button from '../../../components/base/button/button'
 import swal from 'sweetalert'
 import axios from 'axios'
 
-const AddRecipe = () => {
+const AddRecipe = ({ isAuth }) => {
 
     const [files, setFiles] = useState([])
     const [video, setVideo] = useState([])
     const [photo, setPhoto] = useState([])
-    const [authToken, setAuthToken] = useState([])
     const [uploadProgress, setUploadProgress] = useState(0)
     const [recipeData, setRecipeData] = useState({
         title: '',
@@ -23,19 +22,30 @@ const AddRecipe = () => {
     })
 
     useEffect(() => {
-        const dataFromLocal = JSON.parse(localStorage.getItem('RecipediaUser'))
-        console.log(dataFromLocal)
-        if (dataFromLocal === null) {
+        if (isAuth === false) {
             swal({
-                title: "warning!",
-                text: `You should login first to access this page`,
-                icon: "warning",
+                title: "Warning!",
+                text: `Please login to access this page!`,
+                icon: "warning"
             });
             Router.push('/auth/user/login')
-            return
         }
-        setAuthToken(dataFromLocal.token)
-    }, []);
+    }, [isAuth])
+
+    // useEffect(() => {
+    //     const dataFromLocal = JSON.parse(localStorage.getItem('RecipediaUser'))
+    //     console.log(dataFromLocal)
+    //     if (dataFromLocal === null) {
+    //         swal({
+    //             title: "warning!",
+    //             text: `You should login first to access this page`,
+    //             icon: "warning",
+    //         });
+    //         Router.push('/auth/user/login')
+    //         return
+    //     }
+    //     setAuthToken(dataFromLocal.token)
+    // }, []);
 
     // Handle Upload Photo
     const onDrop = useCallback(acceptedFiles => {
@@ -163,7 +173,7 @@ const AddRecipe = () => {
     }
     // Handle Submit Add Recipe End
 
-    console.log(uploadProgress)
+    // console.log(uploadProgress)
 
     return (
         <>
@@ -247,6 +257,22 @@ const AddRecipe = () => {
             </Layout1>
         </>
     )
+}
+
+export const getServerSideProps = async (context) => {
+    try {
+        let isAuth = false
+        if (context.req.headers.cookie) {
+            isAuth = true
+        }
+
+        return {
+            props: { isAuth }
+        }
+
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export default AddRecipe
