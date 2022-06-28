@@ -16,11 +16,16 @@ export const getServerSideProps = async (context) => {
     const result = data.data
 
     return {
-      props: { 
+      props: {
         products: result
       }
     }
   } catch (error) {
     console.log(error)
+    return {
+      props: {
+        products: ''
+      }
+    }
   }
 }
