@@ -40,3 +40,19 @@
     padding: 10px;
     border-radius: 10px;
 }
+
+@media only screen and (max-width: 600px) {
+    .card {
+        height: 160px;
+        width: 160px;
+    }
+
+    .card_name {
+        padding: 10px;
+    }
+
+    .card p {
+        font-size: 12px;
+        font-weight: 600;
+    }
+}

@@ -281,4 +281,131 @@
         height: 351px;
         position: relative;
     }
+
+    /* For You */
+    .foryou {
+        margin-top: 50px;
+    }
+
+    .foryou h3 {
+        height: 40px;
+        font-size: 20px;
+        line-height: 40px;
+        margin: 10px 0px;
+    }
+
+    .foryou_container {
+        margin-top: 30px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .foryou_img {
+        width: 300px;
+        height: 300px;
+    }
+
+    .foryou_img::after {
+        display: none;
+    }
+
+    .foryou_content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .foryou_content h2 {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        font-size: 30px;
+        /* margin-bottom: 30px; */
+    }
+
+    .foryou_content p {
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        margin: 0px;
+    }
+
+    .learn_more {
+        margin: 30px auto;
+    }
+
+    /* New Recipe */
+    .newrecipe {
+        margin-top: 20px;
+    }
+
+    .newrecipe h3 {
+        height: 40px;
+        font-size: 20px;
+        line-height: 40px;
+        margin: 10px 0px;
+    }
+
+    .newrecipe_container {
+        margin-top: 30px;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .newrecipe_img {
+        width: 300px;
+        height: 300px;
+    }
+
+    .newrecipe_img::after {
+        display: none;
+    }
+
+    .newrecipe_content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .newrecipe_content h2 {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        font-size: 30px;
+        /* margin-bottom: 30px; */
+    }
+
+    .newrecipe_content p {
+        width: 100%;
+        text-align: center;
+        font-size: 16px;
+        margin: 0px;
+    }
+
+    .solid_bg {
+        display: none;
+    }
+
+    /* Popular */
+    .popular {
+        margin-top: 30px;
+    }
+
+    .popular h3 {
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+    }
+
+    .cards {
+        margin-top: 30px;
+        gap: 15px;
+    }
+
 }
