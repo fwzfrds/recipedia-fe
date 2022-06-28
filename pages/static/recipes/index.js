@@ -26,7 +26,7 @@ const StaticRecipes = ({ recipes }) => {
                         {recipes && recipes.map((recipe, idx) => {
                             return (
                                 <Card
-                                    recipeName={recipe.title}
+                                    recipeName={recipe.name}
                                     photo={!recipe.photo ? 'https://fakeimg.pl/500x500/?text=Hello' : recipe.photo}
                                     key={idx}
                                     onClick={() => handleRecipeClick(recipe.id)}
@@ -43,11 +43,13 @@ const StaticRecipes = ({ recipes }) => {
 }
 
 export const getStaticProps = async () => {
-    const { data: RespData } = await axios.get("http://localhost:4000/v1/recipes")
-    console.log(RespData.data)
+    // const { data: RespData } = await axios.get("http://localhost:4000/v1/recipes")
+    const response = await axios.get("https://jsonplaceholder.typicode.com/users")
+    const dataUsers = response.data
+    console.log(dataUsers)
     return {
         props: {
-            recipes: RespData.data
+            recipes: dataUsers
         }
     }
 }

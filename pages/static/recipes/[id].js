@@ -9,8 +9,8 @@ const StaticDetailRecipe = ({recipe}) => {
         <div>
             <h1>Static Recipe Detail</h1>
             <ul>
-                <li>{recipe && recipe.title}</li>
-                <li>{recipe && recipe.recipe_by}</li>
+                <li>{recipe && recipe.name}</li>
+                <li>{recipe && recipe.email}</li>
             </ul>
         </div>
     )
@@ -18,9 +18,11 @@ const StaticDetailRecipe = ({recipe}) => {
 
 export async function getStaticPaths() {
     // const id = context.params.id
-    const { data: respData } = await axios.get(`http://localhost:4000/v1/recipes`)
+    // const { data: respData } = await axios.get(`http://localhost:4000/v1/recipes`)
+    const { data: respData } = await axios.get(`https://jsonplaceholder.typicode.com/users`)
+    // console.log(respData)
 
-    const dataRecipes = respData.data
+    const dataRecipes = respData
 
     const paths = dataRecipes.map((recipe) => {
         return {
@@ -40,13 +42,14 @@ export async function getStaticPaths() {
 
 export async function getStaticProps(context) {
     const id = context.params.id
-    const { data: RespData } = await axios.get(`http://localhost:4000/v1/recipes/detail/${id}`)
+    // const { data: RespData } = await axios.get(`http://localhost:4000/v1/recipes/detail/${id}`)
+    const { data: RespData } = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
 
-    console.log(RespData.data)
+    console.log(RespData)
 
     return {
         props: {
-            recipe: RespData.data
+            recipe: RespData
         }
     }
 }

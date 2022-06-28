@@ -9,7 +9,17 @@ import swal from 'sweetalert'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 
-const Profile = ({ profile, isAuth, cookie }) => {
+const Profile = ({ profile, isAuth }) => {
+
+    // console.log(profile)
+    // console.log(isAuth)
+
+    // return (
+    //     <div>Profile Page</div>
+    // )
+
+    console.log(profile)
+    console.log(isAuth)
 
     const router = useRouter()
     const [userData, setUserData] = useState('')
@@ -131,7 +141,11 @@ export const getServerSideProps = async (context) => {
                 }
             })
             result = RespData.data
+            // console.log(result)
         }
+
+        console.log(isAuth)
+        // console.log(context.req.headers.cookie)
 
         return {
             props: {
@@ -143,7 +157,39 @@ export const getServerSideProps = async (context) => {
 
     } catch (error) {
         console.log(error)
+
+        return {
+            props: {
+                profile: {},
+                isAuth: false,
+                cookie: ''
+            }
+        }
     }
 }
 
+// export const getServerSideProps = async (context) => {
+//     try {
+        
+//         const { data: respData} = await axios.get('http://localhost:500/food')
+//         const result = respData.data
+//         console.log(result)
+//         const name = 'wahyu'
+//         console.log(name)
+
+//         return {
+//             props: {
+//                 name: name,
+//                 resep: result
+//             }
+//         }
+
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
 export default Profile
+
+
+
