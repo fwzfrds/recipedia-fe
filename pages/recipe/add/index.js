@@ -129,8 +129,6 @@ const AddRecipe = ({ isAuth }) => {
             formData.append('title', recipeData.title)
             formData.append('ingredients', recipeData.ingredients)
 
-
-
             try {
                 const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/add`, formData, {
                     // headers: { Authorization: `Bearer ${authToken}` }

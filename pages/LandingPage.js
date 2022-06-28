@@ -84,6 +84,44 @@ const LandingPage = ({ products }) => {
               </div>
             </div>
           </main>
+          <div className={`${styles.foryou}`}>
+            <h3>Popular For You !</h3>
+            <div className={`${styles.foryou_container}`}>
+              <div className={`${styles.foryou_img}`}>
+                <Image src={'/assets/img/landing/landing2.png'} alt={''} layout={'fill'} />
+              </div>
+              <div className={`${styles.foryou_content}`}>
+                <h2>Healthy Bone Broth Ramen (Quick & Easy)</h2>
+                <hr />
+                <p>Quick + Easy Chicken Bone Broth Ramen- Healthy chicken ramen in a hurry? That’s right!</p>
+                <Button
+                  text={'Learn more'}
+                  className={`${styles.learn_more}`}
+                />
+              </div>
+            </div>
+          </div>
+          <div className={`${styles.newrecipe}`}>
+            <h3>New Recipe</h3>
+            <div className={`${styles.newrecipe_container}`}>
+              <div className={`${styles.newrecipe_img}`}>
+                <Image src={'/assets/img/landing/landing3.png'} alt={''} layout={'fill'} />
+              </div >
+              <div className={`${styles.solid_bg}`}>
+
+              </div>
+
+              <div className={`${styles.newrecipe_content}`}>
+                <h2>Healthy Bone Broth Ramen (Quick & Easy)</h2>
+                <hr />
+                <p>Quick + Easy Chicken Bone Broth Ramen- Healthy chicken ramen in a hurry? That’s right!</p>
+                <Button
+                  text={'Learn more'}
+                  className={`${styles.learn_more}`}
+                />
+              </div>
+            </div>
+          </div>
           <div className={`${styles.popular}`}>
             <h3>Popular Recipes</h3>
             <div className={`${styles.cards}`}>

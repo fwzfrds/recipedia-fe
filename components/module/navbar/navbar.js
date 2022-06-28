@@ -24,8 +24,6 @@ const Navbar = () => {
     }
   }, [])
 
-  console.log(isLogin)
-
   useEffect(() => {
     switch (router.pathname) {
       case '/':
@@ -61,8 +59,6 @@ const Navbar = () => {
           const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/logout`, {
             withCredentials: true
           })
-
-          console.log(result.data.data)
           localStorage.removeItem('RecipediaUser')
           setIsLogin(false)
           swal({
