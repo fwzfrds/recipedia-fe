@@ -11,16 +11,6 @@ import axios from 'axios'
 
 const Profile = ({ profile, isAuth }) => {
 
-    // console.log(profile)
-    // console.log(isAuth)
-
-    // return (
-    //     <div>Profile Page</div>
-    // )
-
-    console.log(profile)
-    console.log(isAuth)
-
     const router = useRouter()
     const [userData, setUserData] = useState('')
     const [recipesData, setRecipesData] = useState('')

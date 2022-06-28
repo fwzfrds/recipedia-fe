@@ -109,7 +109,9 @@ const UserRegister = () => {
                             width={88}
                             alt={''}
                         />
-                        <p className={`${styles.name}`}>recipedia.</p>
+                        <p className={`${styles.name}`}
+                            onClick={() => router.push('/')}
+                        >recipedia.</p>
                     </div>
                 </div>
                 <div className={`${styles.register_forms}`}>

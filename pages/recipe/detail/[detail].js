@@ -6,24 +6,22 @@ import styles from './RecipeDetail.module.css'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import swal from 'sweetalert'
+import Button from '../../../components/base/button/button'
 // import Loading from '../../../components/base/loading/loading'
 
 const RecipeDetail = ({ recipe }) => {
 
-    // const router = useRouter()
-    // const { detail: id } = router.query
+    const router = useRouter()
+    const { detail: id } = router.query
 
-    console.log(recipe)
+    // console.log(recipe)
 
     const [ingredients, setIngredients] = useState(undefined)
+    const [isMyRecipe, setIsMyRecipe] = useState(false)
     const [image, setImage] = useState('')
     const [video, setVideo] = useState('')
     const [title, setTitle] = useState('')
     const [author, setAuthor] = useState('')
-
-    // const [recipeData, setRecipeData] = useState({
-    //     title: ''
-    // })
 
     useEffect(() => {
         if (recipe) {
@@ -36,20 +34,21 @@ const RecipeDetail = ({ recipe }) => {
         }
     }, [recipe])
 
-    // useEffect(() => {
-    //     if (id) {
-    //         const fetch = async () => {
-    //             const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/detail/${id}`)
-    //             const data = result.data.data
-    //             data.ingredients = (data.ingredients).split(',')
-    //             setRecipeData(data)
-    //             setIngredients(data.ingredients)
-    //             setImage(data.photo)
-    //             setVideo(data.video)
-    //         }
-    //         fetch()
-    //     }
-    // }, [id])
+    useEffect(() => {
+        if (id) {
+            const fetch = async () => {
+                try {
+                    const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/${id}`, {
+                        withCredentials: true
+                    })
+                    setIsMyRecipe(true)
+                } catch (error) {
+                    setIsMyRecipe(false)
+                }
+            }
+            fetch()
+        }
+    }, [id])
 
     return (
         <>
@@ -101,6 +100,14 @@ const RecipeDetail = ({ recipe }) => {
                                 </video>
                             }
                         </div>
+                        {isMyRecipe &&
+                            <div className={`${styles.edit_recipe}`}>
+                                <Button
+                                    text={'edit recipe'}
+                                    onClick={() => router.push(`/recipe/edit/${id}`)}
+                                />
+                            </div>
+                        }
                     </div>
                 </div>
             </Layout1>

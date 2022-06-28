@@ -1,13 +1,15 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState, useEffect } from 'react'
 import Card from '../module/card/card'
 import styles from './UserRecipes.module.css'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
+import Button from '../base/button/button'
 
 const UserRecipes = ({ onClickMenu, menuActive, recipesData }) => {
 
     const router = useRouter()
 
-    console.log(recipesData)
+    console.log(menuActive)
 
     const handleRecipeClick = (recipeID) => {
         router.push(`/recipe/detail/${recipeID}`)
@@ -32,10 +34,13 @@ const UserRecipes = ({ onClickMenu, menuActive, recipesData }) => {
                                 photo={recipe.photo}
                                 style={{
                                     width: 300,
-                                    height: 300
+                                    height: 300,
+                                    position: 'relative'
                                 }}
                                 onClick={() => (recipe.id).length <= 36 ? handleRecipeClick(recipe.id) : handleRecipeClick(recipe.id_recipe)}
-                            />
+                            >
+
+                            </Card>
                         </Fragment>
                     )
                 })

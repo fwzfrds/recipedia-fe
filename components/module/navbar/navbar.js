@@ -5,12 +5,26 @@ import Image from 'next/image'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
+import swal from 'sweetalert'
+import axios from 'axios'
 
 const Navbar = () => {
-  
+
   const router = useRouter()
   const [isPageActive, setisPageActive] = useState('')
   const [isExpand, setIsExpand] = useState(false)
+  const [isLogin, setIsLogin] = useState(false)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const dataFromLocal = localStorage.getItem('RecipediaUser')
+      if (dataFromLocal) {
+        setIsLogin(true)
+      }
+    }
+  }, [])
+
+  console.log(isLogin)
 
   useEffect(() => {
     switch (router.pathname) {
@@ -31,6 +45,43 @@ const Navbar = () => {
 
   const handleCheckbox = (e) => {
     setIsExpand(e.target.checked)
+  }
+
+  const handleLogout = async () => {
+
+    swal({
+      title: "Are you sure",
+      text: `Want to logout?`,
+      icon: "warning",
+      buttons: true,
+      dangerMode: true
+    }).then(async (isOkay) => {
+      if (isOkay) {
+        try {
+          const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/logout`, {
+            withCredentials: true
+          })
+
+          console.log(result.data.data)
+          localStorage.removeItem('RecipediaUser')
+          setIsLogin(false)
+          swal({
+            title: "Good job!",
+            text: `Anda berhasil logout`,
+            icon: "success"
+          })
+          router.push('/auth/user/login')
+        } catch (error) {
+          console.log(error)
+        }
+      } else {
+        swal({
+          title: 'warning',
+          text: `You cancel logout`,
+          icon: 'warning',
+        })
+      }
+    })
   }
 
   return (
@@ -68,9 +119,19 @@ const Navbar = () => {
             <div className={`${styles.icon}`}>
               <Image src='/assets/img/icons/user-icon.png' alt='' width={30} height={25} />
             </div>
-            <Link href={'/auth/user/login'}>
-              Login
-            </Link>
+            {isLogin ?
+              <p onClick={handleLogout}
+                style={{
+                  cursor: 'pointer'
+                }}
+              >
+                Logout
+              </p>
+              :
+              <Link href={'/auth/user/login'}>
+                login
+              </Link>
+            }
           </div>
 
           <div className={`${styles.expand_toggler}`}>
