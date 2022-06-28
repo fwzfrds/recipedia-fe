@@ -168,27 +168,6 @@ export const getServerSideProps = async (context) => {
     }
 }
 
-// export const getServerSideProps = async (context) => {
-//     try {
-        
-//         const { data: respData} = await axios.get('http://localhost:500/food')
-//         const result = respData.data
-//         console.log(result)
-//         const name = 'wahyu'
-//         console.log(name)
-
-//         return {
-//             props: {
-//                 name: name,
-//                 resep: result
-//             }
-//         }
-
-//     } catch (error) {
-//         console.log(error)
-//     }
-// }
-
 export default Profile
 
 
