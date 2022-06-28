@@ -45,7 +45,7 @@ export async function getStaticProps(context) {
     // const { data: RespData } = await axios.get(`http://localhost:4000/v1/recipes/detail/${id}`)
     const { data: RespData } = await axios.get(`https://jsonplaceholder.typicode.com/users/${id}`)
 
-    console.log(RespData)
+    console.log(RespData) // test test
 
     return {
         props: {
