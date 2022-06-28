@@ -23,16 +23,16 @@ const LandingPage = ({ products }) => {
       const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes`)
       setData(result.data)
       setRecipes(result.data.data)
-      setSeverSideData(result.data.data)
+      // setSeverSideData(result.data.data)
     }
     fetch()
   }, [])
 
-  // useEffect(() => {
-  //   if (products) {
-  //     setSeverSideData(products)
-  //   }
-  // }, [products])
+  useEffect(() => {
+    if (products) {
+      setSeverSideData(products)
+    }
+  }, [products])
 
   const handleRecipeClick = (id) => {
     router.push(`/recipe/detail/${id}`)
