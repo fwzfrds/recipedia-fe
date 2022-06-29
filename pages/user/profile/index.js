@@ -19,12 +19,14 @@ const Profile = ({ profile, isAuth }) => {
     const [recipesData, setRecipesData] = useState('')
     const [isModalActive, setIsModalActive] = useState(false)
     const [menuActive, setMenuActive] = useState('my_recipe')
-
-    console.log(isModalActive)
+    const [userPhoto, setUserPhoto] = useState('')
+    const [userName, setUserName] = useState('')
 
     useEffect(() => {
         if (isAuth) {
             setUserData(profile)
+            setUserPhoto(profile.photo)
+            setUserName(profile.name)
         } else {
             swal({
                 title: "Warning!",
@@ -87,6 +89,14 @@ const Profile = ({ profile, isAuth }) => {
         setIsModalActive(false)
     }
 
+    const handleUserPhoto = (photo) => {
+        setUserPhoto(photo)
+    }
+
+    const handleUserName = (name) => {
+        setUserName(name)
+    }
+
     return (
         <>
             <Head>
@@ -99,7 +109,7 @@ const Profile = ({ profile, isAuth }) => {
                     <div className={`${styles.ava_container}`}>
                         <div className={`${styles.user_ava}`}>
                             <UserAva
-                                source={userData.photo ? userData.photo : '/assets/img/dummy-img.jpg'}
+                                source={userPhoto ? userPhoto : '/assets/img/dummy-img.jpg'}
                                 style={{
                                     width: 100,
                                     height: 100,
@@ -119,7 +129,7 @@ const Profile = ({ profile, isAuth }) => {
                                 </svg>
                             </UserAva>
                         </div>
-                        <h3>{userData?.name}</h3>
+                        <h3>{userName ? userName : 'loading'}</h3>
                     </div>
 
                     <UserRecipes
@@ -130,7 +140,7 @@ const Profile = ({ profile, isAuth }) => {
                 </div>
             </Layout1>
             {isModalActive &&
-                <modalContext.Provider value={{ isModalActive, handleModaldeactive }}>
+                <modalContext.Provider value={{ isModalActive, handleModaldeactive, handleUserPhoto, handleUserName }}>
                     <ProfileModal
                         // style={{
                         //     display: 'none'

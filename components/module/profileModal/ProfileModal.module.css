@@ -45,9 +45,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.edit_ava button {
+.edit_ava label {
     width: 80px;
     height: 30px;
     border: none;
@@ -56,6 +58,21 @@
     font-weight: 600;
     background: #EFC81A;
     cursor: pointer;
+    text-align: center;
+    line-height: 30px;
+}
+
+.edit_ava button {
+    width: 80px;
+    height: 30px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 500;
+    background: #EFC81A;
+    cursor: pointer;
+    text-align: center;
+    line-height: 30px;
 }
 
 .forms {
@@ -85,4 +102,16 @@
     height: 40px;
     border-radius: 5px;
     padding-left: 15px;
+}
+
+.update_btn {
+    width: 200px !important;
+    height: 50px;
+    font-size: 18px !important;
+    font-weight: 600;
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 50px;
+    background: #EFC81A;
+    cursor: pointer;
 }
