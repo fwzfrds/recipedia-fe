@@ -2,14 +2,14 @@ import React from 'react'
 import Head from 'next/head'
 import axios from 'axios'
 import Layout1 from '../../../components/layout1'
-import styles from './StaticRecipes.module.css'
+import styles from './StaticUsers.module.css'
 import Card from '../../../components/module/card/card'
 import Router from 'next/router'
 
-const StaticRecipes = ({ recipes }) => {
+const StaticUsers = ({ users }) => {
 
     const handleRecipeClick = (id) => {
-        Router.push(`/static/recipes/${id}`)
+        Router.push(`/static/users/${id}`)
     }
 
     return (
@@ -23,13 +23,13 @@ const StaticRecipes = ({ recipes }) => {
                 <Layout1>
                     <h1>Static Recipes</h1>
                     <div className={`${styles.cards}`}>
-                        {recipes && recipes.map((recipe, idx) => {
+                        {users && users.map((user, idx) => {
                             return (
                                 <Card
-                                    recipeName={recipe.name}
-                                    photo={!recipe.photo ? 'https://fakeimg.pl/500x500/?text=Hello' : recipe.photo}
+                                    recipeName={user.name}
+                                    photo={!user.photo ? 'https://fakeimg.pl/500x500/?text=Hello' : user.photo}
                                     key={idx}
-                                    onClick={() => handleRecipeClick(recipe.id)}
+                                    onClick={() => handleRecipeClick(user.id)}
                                 />
                             )
                         })
@@ -49,9 +49,9 @@ export const getStaticProps = async () => {
     console.log(dataUsers)
     return {
         props: {
-            recipes: dataUsers
+            users: dataUsers
         }
     }
 }
 
-export default StaticRecipes
+export default StaticUsers

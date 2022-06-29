@@ -1,16 +1,16 @@
 import React from 'react'
 import axios from 'axios';
 
-const StaticDetailRecipe = ({recipe}) => {
+const StaticDetailUser = ({user}) => {
 
-    console.log(recipe)
+    // console.log(recipe)
 
     return (
         <div>
-            <h1>Static Recipe Detail</h1>
+            <h1>Static User Detail</h1>
             <ul>
-                <li>{recipe && recipe.name}</li>
-                <li>{recipe && recipe.email}</li>
+                <li>{user && user.name}</li>
+                <li>{user && user.email}</li>
             </ul>
         </div>
     )
@@ -22,12 +22,12 @@ export async function getStaticPaths() {
     const { data: respData } = await axios.get(`https://jsonplaceholder.typicode.com/users`)
     // console.log(respData)
 
-    const dataRecipes = respData
+    const dataUsers = respData
 
-    const paths = dataRecipes.map((recipe) => {
+    const paths = dataUsers.map((user) => {
         return {
             params: {
-                id: recipe.id + ''
+                id: user.id + ''
             }
         }
     })
@@ -49,9 +49,9 @@ export async function getStaticProps(context) {
 
     return {
         props: {
-            recipe: RespData
+            user: RespData
         }
     }
 }
 
-export default StaticDetailRecipe
+export default StaticDetailUser
