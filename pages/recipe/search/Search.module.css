@@ -26,6 +26,36 @@
     gap: 20px;
 }
 
+.search_recipe {
+    width: 300px;
+    height: 30px;
+    border: none;
+    background: rgb(211, 211, 211);
+    border-radius: 5px 0px 0px 5px;
+    padding-left: 10px;
+}
+
+.search_recipe:focus {
+    outline: none;
+}
+
+.search_container {
+    height: fit-content;
+    width: fit-content;
+    /* display: flex; */
+    /* gap: 0px; */
+    /* flex-direction: column; */
+}
+
+.search_container button {
+    height: 30px;
+    background: #EFC81A;
+    border: none;
+    border-radius: 0px 5px 5px 0px;
+    cursor: pointer;
+    margin-left: -20px;
+}
+
 .sort_by {
     display: flex;
     align-items: center;
@@ -36,6 +66,31 @@
     display: flex;
     align-items: center;
     gap: 15px;
+}
+
+.sort_form button {
+    border: none;
+    background: #EFC81A;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.sort_form select {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid rgb(211, 211, 211);
+    outline: none;
+    background: rgb(211, 211, 211);
+}
+
+.sort_form select:focus {
+    border: 3px solid #EFC81A ;
 }
 
 .cards {
@@ -49,6 +104,8 @@
 
 .pagination {
     margin-top: 30px;
+    display: flex;
+    gap: 15px;
 }
 
 .page {

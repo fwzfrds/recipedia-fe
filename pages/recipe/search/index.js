@@ -6,12 +6,14 @@ import styles from './Search.module.css'
 import Card from '../../../components/module/card/card'
 import Button from '../../../components/base/button/button'
 import axios from 'axios'
+import swal from 'sweetalert'
 
 const SearchRecipe = () => {
 
     const router = useRouter()
     const [recipes, setRecipes] = useState('')
     const [data, setData] = useState('')
+    const [search, setSearch] = useState('')
     const [pageActive, setPageActive] = useState(1)
     const [sortBy, setSortBy] = useState('')
     const [sortOrder, setSortOrder] = useState('')
@@ -34,12 +36,14 @@ const SearchRecipe = () => {
         setRecipes(result.data.data)
     }
 
+    const fetch = async () => {
+        const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes?search=${router.query.keyword}`)
+        setData(result.data)
+        setRecipes(result.data.data)
+        setSearch(router.query.keyword)
+    }
+
     useEffect(() => {
-        const fetch = async () => {
-            const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes?search=${router.query.keyword}`)
-            setData(result.data)
-            setRecipes(result.data.data)
-        }
         if (router.query.keyword !== undefined) {
             console.log(router.query.keyword)
             fetch()
@@ -71,8 +75,32 @@ const SearchRecipe = () => {
         router.push(`/recipe/detail/${id}`)
     }
 
-    console.log(data)
-    console.log(sort)
+    const handleSearchInput = (e) => {
+        e.persist()
+        setSearch(e.target.value)
+    }
+
+    const handleSubmitSearch = (e) => {
+        e.preventDefault()
+        if (search === router.query.keyword) {
+            return swal({
+                title: "Warning!",
+                text: `This is the result of ${search}`,
+                icon: "warning"
+            })
+        }
+
+        // if (search === '') {
+        //     return swal({
+        //         title: "Warning!",
+        //         text: `Enter the keyword`,
+        //         icon: "warning"
+        //     })
+        // }
+        router.push(`/recipe/search?keyword=${search}`)
+    }
+
+    console.log(search)
 
     return (
         <>
@@ -85,20 +113,33 @@ const SearchRecipe = () => {
                 <div className={`${styles.search_page}`}>
                     <div className={`${styles.recipes}`}>
                         <div className={`${styles.actions}`}>
-                            <h3>Result :</h3>
-                            <form id='sort-form' onSubmit={handleSubmitSort}>
+                            {/* <h3>Result :</h3> */}
+                            <form
+                                id='search-input' className={`${styles.search_container}`}
+                                onSubmit={handleSubmitSearch}
+                            >
+                                <input
+                                    className={`${styles.search_recipe}`} type="text" placeholder='search' defaultValue={router.query.keyword} onChange={handleSearchInput}
+                                />
+                                <button
+                                    type='submit' form='search-input'
+                                >
+                                    Search
+                                </button>
+                            </form>
+                            <form id='sort-form' className={`${styles.sort_form}`} onSubmit={handleSubmitSort}>
                                 <div className={`${styles.sort_by}`}>
                                     <h3>Sort by : </h3>
-                                    <select name="cars" id="cars" onChange={handleSelectBy}>
-                                        <option selected>Sort By</option>
+                                    <select name="cars" id="cars" onChange={handleSelectBy} defaultValue='sort by'>
+                                        <option>Sort By</option>
                                         <option value="category">Category</option>
                                         <option value="created_at">Created At</option>
                                     </select>
                                 </div>
                                 <div className={`${styles.sort_order}`}>
                                     <h3>Sort Order : </h3>
-                                    <select name="cars" id="cars" onChange={handleSelectOrder}>
-                                        <option selected>Sort Order</option>
+                                    <select name="cars" id="cars" onChange={handleSelectOrder} defaultValue='sort order'>
+                                        <option>Sort Order</option>
                                         <option value="asc">Oldest</option>
                                         <option value="desc">Newest</option>
                                     </select>
@@ -129,7 +170,7 @@ const SearchRecipe = () => {
                         <div className={`${styles.pagination}`}>
                             {data ? new Array(data.pagination.totalPage).fill().map((item, idx) =>
                                 <button
-                                    className={pageActive === idx + 1 ?`${styles.page} ${styles.page_active}` : `${styles.page}`}
+                                    className={pageActive === idx + 1 ? `${styles.page} ${styles.page_active}` : `${styles.page}`}
                                     key={idx}
                                     onClick={() => handlePage(idx + 1)}
                                 >
