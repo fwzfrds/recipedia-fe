@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Input.module.css'
 
 const Input = ({ 
@@ -10,12 +10,17 @@ const Input = ({
   value, 
   label,
   style,
+  styleContainer,
   className,
   defaultValue,
   children
 }) => {
+
   return (
-    <div className={`${styles.input_container}`}>
+    
+    <div className={`${styles.input_container}`}
+      style={styleContainer}
+    >
       <label htmlFor={id}>
         {label}
       </label>

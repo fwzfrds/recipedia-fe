@@ -9,7 +9,7 @@ const UserRecipes = ({ onClickMenu, menuActive, recipesData }) => {
 
     const router = useRouter()
 
-    console.log(menuActive)
+    console.log(recipesData)
 
     const handleRecipeClick = (recipeID) => {
         router.push(`/recipe/detail/${recipeID}`)

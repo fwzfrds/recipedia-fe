@@ -2,9 +2,13 @@ import React from 'react'
 import styles from './Image.module.css'
 import Image from 'next/image'
 
-const UserAva = ({source, style, children}) => {
+const UserAva = ({source, style, onMouseOver, onMouseLeave, children}) => {
   return (
-    <div style={style}>
+    <div 
+      style={style}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
+    >
         <Image 
             src={source} 
             alt=''
