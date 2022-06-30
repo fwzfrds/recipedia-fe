@@ -122,4 +122,20 @@
     color: #FFF;
     pointer-events: none;
 }
+@media only screen and (max-width: 600px) {
+    .actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .sort_form {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .sort_form h3 {
+        display: none;
+    }
+}
+
 

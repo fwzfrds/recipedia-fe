@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState, Fragment } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Layout1 from "../components/layout1"
 import Card from '../components/module/card/card'
 import styles from '../styles/LandingPage.module.css'
-import axios from 'axios'
+// import axios from 'axios'
 import Button from '../components/base/button/button'
 
 const LandingPage = ({ products }) => {
@@ -13,20 +13,19 @@ const LandingPage = ({ products }) => {
   console.log(products)
 
   const router = useRouter()
-  const [data, setData] = useState('')
+  // const [data, setData] = useState('')
   const [serverSideData, setSeverSideData] = useState('')
-  const [recipes, setRecipes] = useState('')
+  // const [recipes, setRecipes] = useState('')
   const [searchValue, setSearchValue] = useState('')
 
-  useEffect(() => {
-    const fetch = async () => {
-      const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes`)
-      setData(result.data)
-      setRecipes(result.data.data)
-      // setSeverSideData(result.data.data)
-    }
-    fetch()
-  }, [])
+  // useEffect(() => {
+  //   const fetch = async () => {
+  //     const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes`)
+  //     setData(result.data)
+  //     setRecipes(result.data.data)
+  //   }
+  //   fetch()
+  // }, [])
 
   useEffect(() => {
     if (products) {

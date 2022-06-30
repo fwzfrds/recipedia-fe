@@ -43,8 +43,8 @@
 
 @media only screen and (max-width: 600px) {
     .card {
-        height: 160px;
-        width: 160px;
+        height: 160px !important;
+        width: 160px !important;
     }
 
     .card_name {

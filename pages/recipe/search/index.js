@@ -4,7 +4,7 @@ import Layout1 from '../../../components/layout1'
 import Head from 'next/head'
 import styles from './Search.module.css'
 import Card from '../../../components/module/card/card'
-import Button from '../../../components/base/button/button'
+// import Button from '../../../components/base/button/button'
 import axios from 'axios'
 import swal from 'sweetalert'
 
@@ -15,14 +15,12 @@ const SearchRecipe = () => {
     const [data, setData] = useState('')
     const [search, setSearch] = useState('')
     const [pageActive, setPageActive] = useState(1)
-    const [sortBy, setSortBy] = useState('')
-    const [sortOrder, setSortOrder] = useState('')
+    // const [sortBy, setSortBy] = useState('')
+    // const [sortOrder, setSortOrder] = useState('')
     const [sort, setSort] = useState({
         sortBy: '',
         sortOrder: ''
     })
-
-    // const [search, setSearch] = useState('')
 
     const fetchData = async (page) => {
         const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes?search=${router.query.keyword}&page=${page}`)
@@ -36,14 +34,20 @@ const SearchRecipe = () => {
         setRecipes(result.data.data)
     }
 
-    const fetch = async () => {
-        const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes?search=${router.query.keyword}`)
-        setData(result.data)
-        setRecipes(result.data.data)
-        setSearch(router.query.keyword)
-    }
+    // const fetchSearch = async () => {
+    //     const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes?search=${router.query.keyword}`)
+    //     setData(result.data)
+    //     setRecipes(result.data.data)
+    //     setSearch(router.query.keyword)
+    // }
 
     useEffect(() => {
+        const fetch = async () => {
+            const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes?search=${router.query.keyword}`)
+            setData(result.data)
+            setRecipes(result.data.data)
+            setSearch(router.query.keyword)
+        }
         if (router.query.keyword !== undefined) {
             console.log(router.query.keyword)
             fetch()

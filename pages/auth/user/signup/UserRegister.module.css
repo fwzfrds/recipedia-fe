@@ -67,6 +67,8 @@
     font-size: 30px;
     line-height: 36px;
     color: #EFC81A;
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 .greeting p {
@@ -74,6 +76,8 @@
     font-size: 18px;
     line-height: 28px;
     color: #8692A6;
+    margin: 0;
+    margin-bottom: 10px;
 }
 
 .input_forms {
@@ -84,7 +88,7 @@
 }
 
 .input_forms input{
-    height: 50px;
+    height: 40px;
 }
 
 .input_forms p {

@@ -21,6 +21,8 @@ const AddRecipe = ({ isAuth }) => {
         ingredients: ''
     })
 
+    console.log(isAuth)
+
     useEffect(() => {
         if (isAuth === false) {
             swal({
@@ -242,15 +244,17 @@ const AddRecipe = ({ isAuth }) => {
                             </label>
                         </div>
                     </form>
-                    <Button
-                        className={`${styles.form_button}`}
-                        type={'submit'}
-                        text={'Post'}
-                        form={'recipe-form'}
-                    />
-                    {uploadProgress ?
-                        <h3>Uploading... {uploadProgress}%</h3> : <></>
-                    }
+                    <div className={`${styles.button_container}`}>
+                        <Button
+                            className={`${styles.form_button}`}
+                            type={'submit'}
+                            text={'Post'}
+                            form={'recipe-form'}
+                        />
+                        {uploadProgress ?
+                            <h3>Uploading... {uploadProgress}%</h3> : <></>
+                        }
+                    </div>
                 </div>
             </Layout1>
         </>
@@ -263,6 +267,8 @@ export const getServerSideProps = async (context) => {
         if (context.req.headers.cookie) {
             isAuth = true
         }
+
+        console.log(isAuth)
 
         return {
             props: { isAuth }

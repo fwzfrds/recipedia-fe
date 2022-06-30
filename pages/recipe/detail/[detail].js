@@ -5,7 +5,7 @@ import Layout1 from '../../../components/layout1'
 import styles from './RecipeDetail.module.css'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import swal from 'sweetalert'
+// import swal from 'sweetalert'
 import Button from '../../../components/base/button/button'
 // import Loading from '../../../components/base/loading/loading'
 
@@ -38,7 +38,7 @@ const RecipeDetail = ({ recipe }) => {
         if (id) {
             const fetch = async () => {
                 try {
-                    const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/${id}`, {
+                    await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/${id}`, {
                         withCredentials: true
                     })
                     setIsMyRecipe(true)

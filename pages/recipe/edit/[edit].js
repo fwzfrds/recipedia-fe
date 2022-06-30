@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Layout1 from '../../../components/layout1'
 import styles from './EditRecipe.module.css'
 import { useDropzone } from 'react-dropzone'
-import Input from '../../../components/base/input/input'
+// import Input from '../../../components/base/input/input'
 import Button from '../../../components/base/button/button'
 import swal from 'sweetalert'
 import axios from 'axios'
@@ -26,7 +26,7 @@ const EditRecipe = () => {
     const [uploadProgress, setUploadProgress] = useState(0)
     const [ingredients, setIngredients] = useState(undefined)
     const [title, setTitle] = useState(undefined)
-    const [isLoading, setIsLoading] = useState(false)
+    // const [isLoading, setIsLoading] = useState(false)
 
     // Get Auth Token From Local Storage
     useEffect(() => {
@@ -42,7 +42,9 @@ const EditRecipe = () => {
             return
         }
         setAuthToken(dataFromLocal.token)
-    }, []);
+    }, [])
+    console.log(authToken)
+    console.log(files)
 
     // Get Previous Recipe Data
     useEffect(() => {
@@ -360,7 +362,7 @@ const EditRecipe = () => {
                         text={'Delete Recipe'}
                         onClick={handleDelRecipe}
                     />
-                    
+
                 </div>
             </Layout1>
         </>

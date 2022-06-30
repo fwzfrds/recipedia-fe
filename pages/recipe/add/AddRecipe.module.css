@@ -42,6 +42,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .dropzone_img div {
@@ -54,6 +56,7 @@
 
 .dropzone_img p {
     margin: 0;
+    /* margin-left: 15px; */
     font-size: 16px;
     color: #666666 !important;
 }
@@ -104,8 +107,12 @@
     color: #666666;
 }
 
+.button_container {
+    width: 90%;
+}
+
 .form_button {
-    width: 426px;
+    width: 100%;
     height: 64px;
     background: #EFC81A;
     border-radius: 6px;

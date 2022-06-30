@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react'
 import Button from '../../base/button/button'
-import Input from '../../base/input/input'
+// import Input from '../../base/input/input'
 import UserAva from '../../base/userAva/Image'
 import styles from './ProfileModal.module.css'
 import { modalContext } from '../../../pages/user/profile/index'
@@ -32,6 +32,9 @@ const ProfileModal = ({ style, userData }) => {
             setUserPhoto(userData.photo)
         }
     }, [userData])
+
+    console.log(isDeactive)
+    console.log(isModalActive)
 
     const handleChange = (e) => {
         e.persist()

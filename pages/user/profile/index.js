@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, createContext } from 'react'
+import React, { useEffect, useState, createContext } from 'react'
 import Head from 'next/head'
 import Layout1 from '../../../components/layout1'
 import styles from './Profile.module.css'

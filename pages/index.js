@@ -1,3 +1,4 @@
+import React from 'react'
 import LandingPage from './LandingPage'
 import axios from 'axios'
 
@@ -9,7 +10,7 @@ export default function Home({ products }) {
   )
 }
 
-export const getServerSideProps = async (context) => {
+export const getServerSideProps = async () => {
   try {
     // server side props cannot return object
     const { data } = await axios.get(`http://localhost:4000/v1/recipes`)

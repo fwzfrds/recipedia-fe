@@ -56,7 +56,7 @@ const Navbar = () => {
     }).then(async (isOkay) => {
       if (isOkay) {
         try {
-          const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/logout`, {
+          await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/logout`, {
             withCredentials: true
           })
           localStorage.removeItem('RecipediaUser')
