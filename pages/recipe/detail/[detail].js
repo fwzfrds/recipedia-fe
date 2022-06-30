@@ -14,7 +14,7 @@ const RecipeDetail = ({ recipe }) => {
     const router = useRouter()
     const { detail: id } = router.query
 
-    // console.log(recipe)
+    console.log(recipe)
 
     const [ingredients, setIngredients] = useState(undefined)
     const [isMyRecipe, setIsMyRecipe] = useState(false)
@@ -26,10 +26,11 @@ const RecipeDetail = ({ recipe }) => {
     useEffect(() => {
         if (recipe) {
             // setRecipeData(recipe)
+            setImage(recipe.photo)
+            // console.log(recipe.photo)
             setTitle(recipe.title)
             setAuthor(recipe.recipe_by)
             setIngredients((recipe.ingredients).split(','))
-            setImage(recipe.photo)
             setVideo(recipe.video)
         }
     }, [recipe])
@@ -38,9 +39,10 @@ const RecipeDetail = ({ recipe }) => {
         if (id) {
             const fetch = async () => {
                 try {
-                    await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/${id}`, {
+                    const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/${id}`, {
                         withCredentials: true
                     })
+                    console.log(result.data.data)
                     setIsMyRecipe(true)
                 } catch (error) {
                     setIsMyRecipe(false)
@@ -63,7 +65,7 @@ const RecipeDetail = ({ recipe }) => {
                         <h1>{!title ? 'Loading...' : title}</h1>
                         <p>recipe by : {!author ? 'john doe' : author}</p>
                         <div className={`${styles.img_container}`}>
-                            <Image src={!image ? 'https://fakeimg.pl/800x450/?text=Recipedia' : `${image}`} priority alt='' layout='fill' />
+                            <Image src={image ? image : 'https://fakeimg.pl/800x450/?text=Recipedia'} priority alt='' layout='fill' />
                             <div className={`${styles.actions}`}>
                                 <div className={`${styles.saved}`}>
                                     <svg width="24" height="28" viewBox="0 0 24 28" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -122,6 +124,7 @@ export const getServerSideProps = async (context) => {
         console.log(recipeID)
         const { data } = await axios.get(`http://localhost:4000/v1/recipes/detail/${recipeID}`)
         const result = data.data
+        console.log(result)
 
         return {
             props: { recipe: result }

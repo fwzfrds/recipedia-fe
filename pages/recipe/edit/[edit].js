@@ -10,28 +10,26 @@ import Button from '../../../components/base/button/button'
 import swal from 'sweetalert'
 import axios from 'axios'
 
-const EditRecipe = () => {
+const EditRecipe = ({ recipe }) => {
 
     const router = useRouter()
     const { edit: id } = router.query
+
 
     const [files, setFiles] = useState([])
     const [video, setVideo] = useState([])
     const [photo, setPhoto] = useState([])
     const [prevVideo, setPrevVideo] = useState([])
     const [prevPhoto, setPrevPhoto] = useState([])
-    const [authToken, setAuthToken] = useState([])
     const [recipeData, setRecipeData] = useState({})
     const [recipeUpdate, setRecipeUpdate] = useState({})
     const [uploadProgress, setUploadProgress] = useState(0)
     const [ingredients, setIngredients] = useState(undefined)
     const [title, setTitle] = useState(undefined)
-    // const [isLoading, setIsLoading] = useState(false)
 
     // Get Auth Token From Local Storage
     useEffect(() => {
         const dataFromLocal = JSON.parse(localStorage.getItem('RecipediaUser'))
-        // console.log(dataFromLocal)
         if (dataFromLocal === null) {
             swal({
                 title: "warning!",
@@ -41,33 +39,26 @@ const EditRecipe = () => {
             Router.push('/auth/user/login')
             return
         }
-        setAuthToken(dataFromLocal.token)
     }, [])
-    console.log(authToken)
+
     console.log(files)
 
     // Get Previous Recipe Data
     useEffect(() => {
-        if (id) {
-            const fetch = async () => {
-                const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/detail/${id}`)
-                const data = result.data.data
-                // data.ingredients = (data.ingredients).split(',')
-                setRecipeData(data)
-                console.log('set ingredients...')
-                setIngredients(data.ingredients)
-                console.log('set title...')
-                setTitle(data.title)
-                if (data.photo) {
-                    setPrevPhoto(data.photo)
-                }
-                if (data.video) {
-                    setPrevVideo(data.video)
-                }
+        if (recipe) {
+            setRecipeData(recipe)
+            setIngredients(recipe.ingredients)
+            setTitle(recipe.title)
+            if (recipe.photo) {
+                setPrevPhoto(recipe.photo)
             }
-            fetch()
+            if (recipe.video) {
+                setPrevVideo(recipe.video)
+            }
         }
-    }, [id])
+    }, [recipe])
+
+    console.log(title)
 
     // Handle Upload Photo
     const onDrop = useCallback(acceptedFiles => {
@@ -311,7 +302,7 @@ const EditRecipe = () => {
                             // label={''}
                             onChange={handleInput}
                             // placeholder={title ? title : 'Title'}
-                            defaultValue={title ? `${title}` : `${title}`}
+                            defaultValue={recipe.title ? recipe.title : `loading`}
                             className={`${styles.input_form}`}
                         // value={value}
                         />
@@ -367,6 +358,24 @@ const EditRecipe = () => {
             </Layout1>
         </>
     )
+}
+
+export const getServerSideProps = async (context) => {
+    try {
+        // server side props cannot return object
+        const recipeID = context.params.edit
+        console.log(recipeID)
+        const { data } = await axios.get(`http://localhost:4000/v1/recipes/detail/${recipeID}`)
+        const result = data.data
+        console.log(result)
+
+        return {
+            props: { recipe: result }
+            // props: {}
+        }
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 export default EditRecipe
