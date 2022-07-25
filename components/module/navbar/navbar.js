@@ -14,11 +14,14 @@ const Navbar = () => {
   const [isPageActive, setisPageActive] = useState('')
   const [isExpand, setIsExpand] = useState(false)
   const [isLogin, setIsLogin] = useState(false)
+  const [profileImg, setProfileImg] = useState('')
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const dataFromLocal = localStorage.getItem('RecipediaUser')
+      const data = JSON.parse(dataFromLocal)
       if (dataFromLocal) {
+        setProfileImg(data.photo)
         setIsLogin(true)
       }
     }
@@ -83,7 +86,7 @@ const Navbar = () => {
   return (
     <>
       <Head>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
+        <link rel='stylesheet' href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossOrigin="anonymous" referrerPolicy="no-referrer" />
       </Head>
       <nav className={`${styles.navbar_container}`}>
         <div className={`${styles.navbar_content}`}>
@@ -113,7 +116,7 @@ const Navbar = () => {
 
           <div className={`${styles.account}`}>
             <div className={`${styles.icon}`}>
-              <Image src='/assets/img/icons/user-icon.png' alt='' width={30} height={25} />
+              <Image src={profileImg ? profileImg : '/assets/img/icons/user-icon.png'} alt='' layout='fill' />
             </div>
             {isLogin ?
               <p onClick={handleLogout}

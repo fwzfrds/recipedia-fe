@@ -10,7 +10,7 @@ import Button from '../components/base/button/button'
 
 const LandingPage = ({ products }) => {
 
-  console.log(products)
+  // console.log(document.cookie)
 
   const router = useRouter()
   // const [data, setData] = useState('')
