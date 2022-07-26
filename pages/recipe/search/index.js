@@ -43,10 +43,24 @@ const SearchRecipe = () => {
 
     useEffect(() => {
         const fetch = async () => {
-            const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes?search=${router.query.keyword}`)
-            setData(result.data)
-            setRecipes(result.data.data)
-            setSearch(router.query.keyword)
+            try {
+                const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes?search=${router.query.keyword}`)
+                setData(result.data)
+                setRecipes(result.data.data)
+                setSearch(router.query.keyword)
+            } catch (error) {
+                console.log(error)
+                if (error.response.data.message === 'Data not found') {
+                    setRecipes(`Data not found`)
+                    setData('')
+                    setSearch('')
+                }
+                return swal({
+                    title: "Warning!",
+                    text: `${error.response.data.message}`,
+                    icon: "warning"
+                })
+            }
         }
         if (router.query.keyword !== undefined) {
             console.log(router.query.keyword)
@@ -159,16 +173,22 @@ const SearchRecipe = () => {
                             </form>
                         </div>
                         <div className={`${styles.cards}`}>
-                            {!data ? <p>Loading</p> : recipes.map((recipe, idx) => {
-                                return (
-                                    <Card
-                                        recipeName={recipe.title}
-                                        photo={!recipe.photo ? 'https://fakeimg.pl/500x500/?text=Hello' : recipe.photo}
-                                        key={idx}
-                                        onClick={() => handleRecipeClick(recipe.id)}
-                                    />
-                                )
-                            })}
+                            {!data ? <p>{recipes === 'Data not found' ?
+                                `recipe not found, let's find another`
+                                :
+                                'loading...'
+                            }</p>
+                                :
+                                recipes.map((recipe, idx) => {
+                                    return (
+                                        <Card
+                                            recipeName={recipe.title}
+                                            photo={!recipe.photo ? 'https://fakeimg.pl/500x500/?text=Hello' : recipe.photo}
+                                            key={idx}
+                                            onClick={() => handleRecipeClick(recipe.id)}
+                                        />
+                                    )
+                                })}
 
                         </div>
                         <div className={`${styles.pagination}`}>
@@ -180,7 +200,16 @@ const SearchRecipe = () => {
                                 >
                                     {idx + 1}
                                 </button>
-                            ) : <p>Loading...</p>}
+                            )
+                                :
+                                <p>
+                                    {recipes === 'Data not found' ?
+                                        ''
+                                        :
+                                        'loading...'
+                                    }
+                                </p>
+                            }
                         </div>
                     </div>
                 </div>
