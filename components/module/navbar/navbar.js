@@ -59,9 +59,20 @@ const Navbar = () => {
     }).then(async (isOkay) => {
       if (isOkay) {
         try {
-          await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/logout`, {
-            withCredentials: true
-          })
+          // await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/logout`, {
+          //   withCredentials: true
+          // })
+          // const result =
+          await fetch('api/logout')
+          // const { logout } = await result.json()
+          // if (logout) {
+          //   swal({
+          //     title: "Error!",
+          //     text: `Add recipe error`,
+          //     icon: "error",
+          // })
+          //   router.push('/auth/login')
+          // }
           localStorage.removeItem('RecipediaUser')
           setIsLogin(false)
           swal({

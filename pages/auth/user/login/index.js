@@ -15,15 +15,15 @@ const UserLogin = () => {
     // console.log(router.query.activation)
 
     useEffect(() => {
-      if(router.query.activation) {
-        swal({
-            title: "Congrats!",
-            text: `Your account has been activated!`,
-            icon: "success"
-        })
-      }
+        if (router.query.activation) {
+            swal({
+                title: "Congrats!",
+                text: `Your account has been activated!`,
+                icon: "success"
+            })
+        }
     }, [router.query.activation])
-    
+
 
     const [loginData, setLoginData] = useState({
         email: '',
@@ -46,8 +46,35 @@ const UserLogin = () => {
 
         try {
             if (isAgree) {
-                const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/login`, loginData, {withCredentials: true})
-                console.log(result.data.data);
+                const result = await axios({
+                    url: `${process.env.NEXT_PUBLIC_API_URL}/v1/users/login`,
+                    method: 'POST',
+                    withCredentials: true,
+                    data: loginData,
+                    crossDomain: true
+                })
+                // const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/login`, loginData, {withCredentials: true})
+                const token = result.data.data.token
+                const data = {
+                    token: token
+                }
+
+                await fetch('/api/loginnext', {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                // const isToken = await cookie.json()
+                // if (!isToken) {
+                //     return swal({
+                //         title: 'warning',
+                //         text: `Login Error`,
+                //         icon: 'warning',
+                //     })
+                // }
 
                 const dataLocal = {
                     name: result.data.data.name,

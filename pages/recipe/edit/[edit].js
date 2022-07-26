@@ -10,7 +10,7 @@ import Button from '../../../components/base/button/button'
 import swal from 'sweetalert'
 import axios from 'axios'
 
-const EditRecipe = ({ recipe }) => {
+const EditRecipe = ({ recipe, token }) => {
 
     const router = useRouter()
     const { edit: id } = router.query
@@ -162,8 +162,8 @@ const EditRecipe = ({ recipe }) => {
             // setIsLoading(true)
 
             const result = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/edit/${id}`, formData, {
-                // headers: { Authorization: `Bearer ${authToken}` },
-                withCredentials: true,
+                headers: { Authorization: `Bearer ${token}` },
+                // withCredentials: true,
                 onUploadProgress: progressEvent => {
                     let percent = Math.floor((progressEvent.loaded * 100) / progressEvent.total)
                     console.log(`${progressEvent.loaded}kb of ${progressEvent.total}kb | ${percent}%`)
@@ -218,8 +218,8 @@ const EditRecipe = ({ recipe }) => {
             if (isOkay) {
                 try {
                     await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/${id}`, {
-                        // headers: { Authorization: `Bearer ${authToken}` },
-                        withCredentials: true
+                        headers: { Authorization: `Bearer ${token}` }
+                        // withCredentials: true
                     })
 
                     swal({
@@ -363,14 +363,13 @@ const EditRecipe = ({ recipe }) => {
 export const getServerSideProps = async (context) => {
     try {
         // server side props cannot return object
+        const { token } = context.req.cookies
         const recipeID = context.params.edit
-        console.log(recipeID)
-        const { data } = await axios.get(`http://localhost:4000/v1/recipes/detail/${recipeID}`)
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/detail/${recipeID}`)
         const result = data.data
-        console.log(result)
 
         return {
-            props: { recipe: result }
+            props: { recipe: result, token}
             // props: {}
         }
     } catch (error) {

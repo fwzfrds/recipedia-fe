@@ -9,7 +9,7 @@ import axios from 'axios'
 import Button from '../../../components/base/button/button'
 // import Loading from '../../../components/base/loading/loading'
 
-const RecipeDetail = ({ recipe }) => {
+const RecipeDetail = ({ recipe, token }) => {
 
     const router = useRouter()
     const { detail: id } = router.query
@@ -40,7 +40,8 @@ const RecipeDetail = ({ recipe }) => {
             const fetch = async () => {
                 try {
                     const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/${id}`, {
-                        withCredentials: true
+                        // withCredentials: true
+                        headers: { Authorization: `Bearer ${token}` }
                     })
                     console.log(result.data.data)
                     setIsMyRecipe(true)
@@ -50,7 +51,7 @@ const RecipeDetail = ({ recipe }) => {
             }
             fetch()
         }
-    }, [id])
+    }, [id, token])
 
     return (
         <>
@@ -120,14 +121,15 @@ const RecipeDetail = ({ recipe }) => {
 export const getServerSideProps = async (context) => {
     try {
         // server side props cannot return object
+        const { token } = context.req.cookies
         const recipeID = context.params.detail
         console.log(recipeID)
-        const { data } = await axios.get(`http://localhost:4000/v1/recipes/detail/${recipeID}`)
+        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/detail/${recipeID}`)
         const result = data.data
         console.log(result)
 
         return {
-            props: { recipe: result }
+            props: { recipe: result, token }
             // props: {}
         }
     } catch (error) {

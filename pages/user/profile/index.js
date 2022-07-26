@@ -12,7 +12,7 @@ import ProfileModal from '../../../components/module/profileModal'
 
 export const modalContext = createContext({})
 
-const Profile = ({ profile, isAuth }) => {
+const Profile = ({ profile, isAuth, token }) => {
 
     const router = useRouter()
     const [userData, setUserData] = useState('')
@@ -43,22 +43,22 @@ const Profile = ({ profile, isAuth }) => {
                 // console.log(authToken)
                 if (menuActive === 'my_recipe') {
                     const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/user-recipe`, {
-                        // headers: { Authorization: `Bearer ${authToken}` },
-                        withCredentials: true
+                        headers: { Authorization: `Bearer ${token}` },
+                        // withCredentials: true
                     })
                     const data = result.data
                     setRecipesData(data)
                 } else if (menuActive === 'liked_recipe') {
                     const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/liked?page=1&limit=4`, {
-                        // headers: { Authorization: `Bearer ${authToken}` }
-                        withCredentials: true
+                        headers: { Authorization: `Bearer ${token}` }
+                        // withCredentials: true
                     })
                     const data = result.data
                     setRecipesData(data)
                 } else if (menuActive === 'saved_recipe') {
                     const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/saved?page=1&limit=4`, {
-                        // headers: { Authorization: `Bearer ${authToken}` }
-                        withCredentials: true
+                        headers: { Authorization: `Bearer ${token}` }
+                        // withCredentials: true
                     })
                     const data = result.data
                     setRecipesData(data)
@@ -74,7 +74,7 @@ const Profile = ({ profile, isAuth }) => {
         if (menuActive && isAuth) {
             fetchRecipes()
         }
-    }, [menuActive, isAuth])
+    }, [menuActive, isAuth, token])
 
     const handleClickMenu = (e) => {
         const data = (e.target.innerText).toLowerCase()
@@ -161,19 +161,22 @@ const Profile = ({ profile, isAuth }) => {
 
 export const getServerSideProps = async (context) => {
     try {
-        let cookie = ''
+        // let cookie = ''
         let result = {}
         let isAuth = false
-        if (context.req.headers.cookie) {
-            cookie = context.req.headers.cookie
-            cookie = cookie.split('=')
-            cookie = cookie[1]
+        const { recipediaToken: token } = context.req.cookies
+        if (token) {
+            // cookie = context.req.headers.cookie
+            // cookie = cookie.split('=')
+            // cookie = cookie[1]
 
             isAuth = true
 
-            const { data: RespData } = await axios.get(`http://localhost:4000/v1/users/profile`, {
-                withCredentials: true, headers: {
-                    Cookie: context.req.headers.cookie
+            const { data: RespData } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/profile`, {
+                // withCredentials: true, 
+                headers: {
+                    // Cookie: context.req.headers.cookie
+                    Authorization: `Bearer ${token}`
                 }
             })
             result = RespData.data
@@ -187,7 +190,8 @@ export const getServerSideProps = async (context) => {
             props: {
                 profile: result,
                 isAuth,
-                cookie
+                token
+                // cookie
             }
         }
 
@@ -198,7 +202,8 @@ export const getServerSideProps = async (context) => {
             props: {
                 profile: {},
                 isAuth: false,
-                cookie: ''
+                token: ''
+                // cookie: ''
             }
         }
     }

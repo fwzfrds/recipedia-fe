@@ -10,7 +10,7 @@ import Button from '../../../components/base/button/button'
 import swal from 'sweetalert'
 import axios from 'axios'
 
-const AddRecipe = ({ isAuth }) => {
+const AddRecipe = ({ isAuth, token }) => {
 
     const [files, setFiles] = useState([])
     const [video, setVideo] = useState([])
@@ -27,7 +27,7 @@ const AddRecipe = ({ isAuth }) => {
         if (isAuth === false) {
             swal({
                 title: "Warning!",
-                text: `Please login to access this page!`,
+                text: `Please login to add recipe page!`,
                 icon: "warning"
             });
             Router.push('/auth/user/login')
@@ -133,8 +133,8 @@ const AddRecipe = ({ isAuth }) => {
 
             try {
                 const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/add`, formData, {
-                    // headers: { Authorization: `Bearer ${authToken}` }
-                    withCredentials: true,
+                    headers: { Authorization: `Bearer ${token}` },
+                    // withCredentials: true,
                     onUploadProgress: progressEvent => {
                         let percent = Math.floor((progressEvent.loaded * 100) / progressEvent.total)
                         console.log(`${progressEvent.loaded}kb of ${progressEvent.total}kb | ${percent}%`)
@@ -264,14 +264,15 @@ const AddRecipe = ({ isAuth }) => {
 export const getServerSideProps = async (context) => {
     try {
         let isAuth = false
-        if (context.req.headers.cookie) {
+        const { recipediaToken: token } = context.req.cookies
+
+        // if (context.req.headers.cookie) {
+        if (token) {
             isAuth = true
         }
 
-        console.log(isAuth)
-
         return {
-            props: { isAuth }
+            props: { isAuth, token }
         }
 
     } catch (error) {
@@ -280,5 +281,3 @@ export const getServerSideProps = async (context) => {
 }
 
 export default AddRecipe
-
-// tes tes

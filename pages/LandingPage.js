@@ -10,7 +10,7 @@ import Button from '../components/base/button/button'
 
 const LandingPage = ({ products }) => {
 
-  // console.log(document.cookie)
+  // console.log(products)
 
   const router = useRouter()
   // const [data, setData] = useState('')
@@ -18,18 +18,13 @@ const LandingPage = ({ products }) => {
   // const [recipes, setRecipes] = useState('')
   const [searchValue, setSearchValue] = useState('')
 
-  // useEffect(() => {
-  //   const fetch = async () => {
-  //     const result = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes`)
-  //     setData(result.data)
-  //     setRecipes(result.data.data)
-  //   }
-  //   fetch()
-  // }, [])
-
   useEffect(() => {
     if (products) {
       setSeverSideData(products)
+    } else {
+      setTimeout(() => {
+        setSeverSideData('data is empty')
+      }, 2000)
     }
   }, [products])
 
@@ -47,6 +42,8 @@ const LandingPage = ({ products }) => {
 
     router.push(`/recipe/search?keyword=${searchValue}`)
   }
+
+  console.log(serverSideData)
 
   return (
     <>
@@ -124,7 +121,11 @@ const LandingPage = ({ products }) => {
           <div className={`${styles.popular}`}>
             <h3>Popular Recipes</h3>
             <div className={`${styles.cards}`}>
-              {!serverSideData ? <h4>Loading...</h4> : serverSideData.map((recipe, idx) => {
+              {!serverSideData ? <h4>Loading...</h4> 
+                : 
+                serverSideData === 'data is empty' ? <h4>Data is Empty</h4>
+                :
+                serverSideData.map((recipe, idx) => {
                 return (
                   <Card
                     recipeName={recipe.title}

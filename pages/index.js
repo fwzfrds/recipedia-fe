@@ -13,7 +13,7 @@ export default function Home({ products }) {
 export const getServerSideProps = async () => {
   try {
     // server side props cannot return object
-    const { data } = await axios.get(`http://localhost:4000/v1/recipes`)
+    const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes`)
     const result = data.data
 
     return {
