@@ -6,7 +6,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
 import swal from 'sweetalert'
-import axios from 'axios'
+// import axios from 'axios'
 
 const Navbar = () => {
 
@@ -80,7 +80,7 @@ const Navbar = () => {
             text: `Anda berhasil logout`,
             icon: "success"
           })
-          router.push('/auth/user/login')
+          // router.push('/auth/user/login')
         } catch (error) {
           console.log(error)
         }

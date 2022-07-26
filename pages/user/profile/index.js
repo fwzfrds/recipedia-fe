@@ -22,6 +22,9 @@ const Profile = ({ profile, isAuth, token }) => {
     const [userPhoto, setUserPhoto] = useState('')
     const [userName, setUserName] = useState('')
 
+    // console.log(isAuth)
+    // console.log(token)
+
     useEffect(() => {
         if (isAuth) {
             setUserData(profile)
@@ -164,11 +167,13 @@ export const getServerSideProps = async (context) => {
         // let cookie = ''
         let result = {}
         let isAuth = false
-        const { recipediaToken: token } = context.req.cookies
-        if (token) {
+        let token = ''
+        
+        if (context.req.cookies.recipediaToken) {
             // cookie = context.req.headers.cookie
             // cookie = cookie.split('=')
             // cookie = cookie[1]
+            token = context.req.cookies.recipediaToken
 
             isAuth = true
 
@@ -183,14 +188,14 @@ export const getServerSideProps = async (context) => {
             // console.log(result)
         }
 
-        console.log(result)
+        // console.log(result)
         // console.log(context.req.headers.cookie)
 
         return {
             props: {
                 profile: result,
                 isAuth,
-                token
+                token: token
                 // cookie
             }
         }

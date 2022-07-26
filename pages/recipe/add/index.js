@@ -264,11 +264,13 @@ const AddRecipe = ({ isAuth, token }) => {
 export const getServerSideProps = async (context) => {
     try {
         let isAuth = false
-        const { recipediaToken: token } = context.req.cookies
+        // const { recipediaToken: token } = context.req.cookies
+        let token = ''
 
         // if (context.req.headers.cookie) {
-        if (token) {
+        if (context.req.cookies.recipediaToken) {
             isAuth = true
+            token = context.req.cookies.recipediaToken
         }
 
         return {

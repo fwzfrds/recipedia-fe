@@ -121,11 +121,18 @@ const RecipeDetail = ({ recipe, token }) => {
 export const getServerSideProps = async (context) => {
     try {
         // server side props cannot return object
-        const { token } = context.req.cookies
+        // const { token } = context.req.cookies
+        let token = ''
+        let result = ''
         const recipeID = context.params.detail
-        console.log(recipeID)
-        const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/detail/${recipeID}`)
-        const result = data.data
+        
+        if(context.req.cookies.recipediaToken) {
+            token = context.req.cookies.recipediaToken
+
+            const { data } = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/v1/recipes/detail/${recipeID}`)
+
+            result = data.data
+        }
         console.log(result)
 
         return {

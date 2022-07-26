@@ -49,9 +49,9 @@ const UserLogin = () => {
                 const result = await axios({
                     url: `${process.env.NEXT_PUBLIC_API_URL}/v1/users/login`,
                     method: 'POST',
-                    withCredentials: true,
+                    // withCredentials: true,
                     data: loginData,
-                    crossDomain: true
+                    // crossDomain: true
                 })
                 // const result = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/login`, loginData, {withCredentials: true})
                 const token = result.data.data.token
