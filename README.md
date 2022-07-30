@@ -3,7 +3,7 @@
 
   <h3 align="center">Recipedia</h3>
   <p align="center">
-    <image align="center" width="100" src='/assets/img/icons/logo.png' />
+    <image align="center" width="100" src='./public/assets/img/icons/logo.png' />
   </p>
 
   <p align="center">
