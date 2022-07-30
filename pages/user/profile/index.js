@@ -143,7 +143,7 @@ const Profile = ({ profile, isAuth, token }) => {
                 </div>
             </Layout1>
             {isModalActive &&
-                <modalContext.Provider value={{ isModalActive, handleModaldeactive, handleUserPhoto, handleUserName }}>
+                <modalContext.Provider value={{ isModalActive, handleModaldeactive, handleUserPhoto, handleUserName, token }}>
                     <ProfileModal
                         // style={{
                         //     display: 'none'

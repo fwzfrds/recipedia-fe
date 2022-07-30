@@ -21,7 +21,7 @@ const ProfileModal = ({ style, userData }) => {
     const [previewPhoto, setPreviewPhoto] = useState('')
     const [uploadProgress, setUploadProgress] = useState(0)
     const [isDeactive, setIsDeactive] = useState(false)
-    const { isModalActive, handleModaldeactive, handleUserPhoto, handleUserName } = useContext(modalContext)
+    const { isModalActive, handleModaldeactive, handleUserPhoto, handleUserName, token } = useContext(modalContext)
 
     useEffect(() => {
         if (typeof window !== 'undefined') {
@@ -99,7 +99,8 @@ const ProfileModal = ({ style, userData }) => {
 
         try {
             const result = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/v1/users/edit`, formData, {
-                withCredentials: true,
+                // withCredentials: true,
+                headers: { Authorization: `Bearer ${token}` },
                 onUploadProgress: progressEvent => {
                     let percent = Math.floor((progressEvent.loaded * 100) / progressEvent.total)
                     console.log(`${progressEvent.loaded}kb of ${progressEvent.total}kb | ${percent}%`)
