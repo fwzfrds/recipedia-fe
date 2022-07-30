@@ -35,13 +35,14 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-Recipedia is a web application which provides various recipes and its video tutorial. This application built with Node JS, Express JS, Next JS as frontend framework, Nodemailer as as module for sending email, & Cloudinary as cloud services for uploading images.
+Recipedia is a web application which provides various recipes and its video tutorial. This application built with Node JS, PostgreSQL database, Express JS, Next JS as frontend framework, Nodemailer as as module for sending email, & Cloudinary as cloud services for uploading images.
 This Application use Rest API server from [reciepdia-api](https://recipedia-api.herokuapp.com)
 
 ### Built With
 
 * [Node JS](https://nodejs.org/en/docs/)
 * [Express JS](https://expressjs.com/)
+* [PostgreSQL](https://www.postgresql.org/)
 * [Next JS](https://nextjs.org/)
 * [Nodemailer](https://nodemailer.com/about/)
 * [Cloudinary](https://cloudinary.com/)
