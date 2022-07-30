@@ -98,17 +98,17 @@ Contributions are what make the open source community such an amazing place to b
 | ------------- | ------------- |
 | ![Login](/public/assets/img/screenshot/login.png?raw=true "Login Page") | ![Register](/public/assets/img/screenshot/register.png?raw=true "Register Page")|
 
-| Landing Page  | Product Detail Page |
+| Landing Page  | Recipe Detail Page |
 | ------------- | ------------- |
 | ![Landing](/public/assets/img/screenshot/home.png?raw=true "Landing Page") | ![Recipe Detail](/public/assets/img/screenshot/recipe-detail.png?raw=true "Recipe Detail Page") |
 
-| Profile Page | Add Product Page |
+| Profile Page | Add Recipe Page |
 | ------------- | ------------- |
 | ![Profile](/public/assets/img/screenshot/profile.png?raw=true "Profile Page") | ![Add Recipe](/public/assets/img/screenshot/add-recipe.png?raw=true "Add Recipe Page") |
 
-| Cart Page | Checkout Page |
+| Search Page | Video Page |
 | ------------- | ------------- |
-| ![Search Page](/public/assets/img/screenshot/search-page.png?raw=true "Search Page") | ![Video Tutorial](/public/assets/img/screenshot/video-recipe.png?raw=true "Checkout Page") |
+| ![Search Page](/public/assets/img/screenshot/search-page.png?raw=true "Search Page") | ![Video Tutorial](/public/assets/img/screenshot/video-recipe.png?raw=true "Video Page") |
 
 
 <!-- RELATED PROJECT -->
